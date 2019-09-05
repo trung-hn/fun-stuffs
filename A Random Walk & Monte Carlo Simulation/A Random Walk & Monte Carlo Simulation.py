@@ -1,5 +1,13 @@
 # -*- coding: utf-8 -*-
-# Fun experiment with random walk
+"""
+Created on Wed Aug 21 18:46:58 2019
+
+@author: trung
+Desc: Fun experiment with random walk
+"""
+
+
+
 
 import random
 def random_walk(n):
