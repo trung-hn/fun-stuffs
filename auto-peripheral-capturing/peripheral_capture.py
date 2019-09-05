@@ -18,8 +18,7 @@ def main():
             print(f"Mouse position at {mouse.position} is recorded")
             start = mouse.position
         if key == Key.ctrl_l and start:
-            print(f"""Image captured from {start} to {mouse.position}
-             is save as screen_shot_{count}.png""")
+            print(f"""Image captured from {start} to {mouse.position} is save as screen_shot_{count}.png""")
             end = [mouse.position[i] - start[i] for i in range(2)]
             pyautogui.screenshot(region=(*start, *end)).save(f"{dir_path}/screen_shot_{count}.png")
             start = ()
