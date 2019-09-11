@@ -1,2 +1,2 @@
-# fun-stuff
+# experiments
 Just some fun codes/experiments
