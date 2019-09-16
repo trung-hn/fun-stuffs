@@ -64,6 +64,34 @@ def pre_populate_pool(pools):
                     # remove val in the same col from set
                     if val in pool: pool.remove(val)
                 pools[r][c] = pool
+          
+    for col, val in enumerate(top):
+        if not val: continue
+        for row in range(val - 1):
+            for siz in range(size - val + 2 + row, size + 1):
+                if siz in pools[row][col]:
+                    pools[row][col].remove(siz)
+
+    for col, val in enumerate(bot):
+        if not val: continue
+        for row in range(val - 1):
+            for siz in range(size - val + 2 + row, size + 1):
+                if siz in pools[size - 1 - row][col]:
+                    pools[size - 1 - row][col].remove(siz)
+    #
+    for row, val in enumerate(left):
+        if not val: continue
+        for col in range(val - 1):
+            for siz in range(size - val + 2 + col, size + 1):
+                if siz in pools[row][col]:
+                    pools[row][col].remove(siz)
+
+    for row, val in enumerate(right):
+        if not val: continue
+        for col in range(val - 1):
+            for siz in range(size - val + 2 + col, size + 1):
+                if siz in pools[row][size - 1 - col]:
+                    pools[row][size - 1 - col].remove(siz)
 
 
 # return number of building seen from a direction
