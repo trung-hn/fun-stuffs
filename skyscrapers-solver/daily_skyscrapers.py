@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 # Matrix can be put in the following format.
 matrix = [[0, 0, 0, 0, 0, 4, 0, 0, 0],
           [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -15,10 +17,56 @@ bot = [3, 2, 3, 5, 3, 1, 4, 3, 2]
 left = [3, 4, 3, 1, 5, 2, 2, 4, 2]
 right = [5, 3, 2, 5, 3, 3, 3, 1, 2]
 
+# matrix = [[1, 0, 0, 0, 2, 0, 0, 0],
+#           [0, 0, 0, 0, 0, 0, 0, 0],
+#           [0, 0, 0, 0, 0, 0, 0, 0],
+#           [0, 0, 0, 0, 0, 0, 0, 0],
+#           [0, 0, 0, 0, 0, 0, 0, 2],
+#           [0, 0, 0, 0, 3, 0, 0, 0],
+#           [0, 0, 1, 0, 0, 0, 0, 0],
+#           [5, 0, 0, 0, 0, 0, 0, 0],
+#           ]
+#
+# top = [0, 0, 0, 0, 0, 6, 0, 0]
+# bot = [4, 4, 3, 4, 4, 0, 0, 0]
+# left = [2, 1, 0, 3, 0, 2, 0, 3]
+# right = [2, 6, 2, 2, 4, 0, 1, 0]
+
 # Program starts here.
 size = len(matrix)
 
 
+def pre_populate_matrix():
+    # pre-pop those cells == 1
+    for i, val in enumerate(top):
+        if val == 1: matrix[0][i] = size
+    for i, val in enumerate(left):
+        if val == 1: matrix[i][0] = size
+    for i, val in enumerate(bot):
+        if val == 1: matrix[-1][i] = size
+    for i, val in enumerate(right):
+        if val == 1: matrix[i][-1] = size
+
+
+# populate a pool of values at each cell.
+def pre_populate_pool(pools):
+    for r in range(size):
+        for c in range(size):
+            # if there is already a val, pool = set(val)
+            if matrix[r][c]:
+                pools[r][c] = [matrix[r][c]]
+            else:
+                pool = list(range(1, size + 1))
+                for val in matrix[r]:
+                    # remove val on the same row from set
+                    if val in pool: pool.remove(val)
+                for val in [row[c] for row in matrix]:
+                    # remove val in the same col from set
+                    if val in pool: pool.remove(val)
+                pools[r][c] = pool
+
+
+# return number of building seen from a direction
 def number_of_buildings(i: int, j: int, vert: bool = False, reverse: bool = False) -> int:
     loop_over = reversed(range(size)) if reverse else range(size)
     low, count = 0, 0
@@ -40,47 +88,59 @@ def is_valid(i, j):
     if [row[j] for row in matrix].count(val) == 2:
         return False
 
-    if j == size - 1:
-        no_buildings = number_of_buildings(i, j, False, False)
-        if left[i] and no_buildings != left[i]: return False
+    if j == size - 1:  # only check when row is full
+        if i == 2: print(matrix)
+        no_buildings_left = number_of_buildings(i, j, False, False)
+        if left[i] and no_buildings_left != left[i]: return False
 
-        no_buildings = number_of_buildings(i, j, False, True)
-        if right[i] and no_buildings != right[i]: return False
+        no_buildings_right = number_of_buildings(i, j, False, True)
+        if right[i] and no_buildings_right != right[i]: return False
 
-    if i == size - 1:
-        no_buildings = number_of_buildings(i, j, True, False)
-        if top[j] and no_buildings != top[j]: return False
+    if i == size - 1:  # only check when column is full
+        no_buildings_top = number_of_buildings(i, j, True, False)
+        if top[j] and no_buildings_top != top[j]: return False
 
-        no_buildings = number_of_buildings(i, j, True, True)
-        if bot[j] and no_buildings != bot[j]: return False
-
+        no_buildings_bot = number_of_buildings(i, j, True, True)
+        if bot[j] and no_buildings_bot != bot[j]: return False
     return True
 
 
 def backtrack(r=0, c=0):
-    # default value
     if r == size: return True
-    if matrix[r][c]:
-        rv = backtrack(r, c + 1) if c < size - 1 else backtrack(r + 1, 0)
-        return rv
-    for val in range(1, size + 1):
+    pool = pools[r][c]
+    for val in pool:
         matrix[r][c] = val
         if is_valid(r, c):
             rv = backtrack(r, c + 1) if c < size - 1 else backtrack(r + 1, 0)
             if rv: return True
+        if len(pool) == 1:
+            return
     # backtrack here
     matrix[r][c] = 0
 
 
-def print_matrix():
+def print_matrix(matrix):
     print("  ", "  ".join(map(str, top)))
     for i, row in enumerate(matrix):
         print(left[i], row, right[i])
     print("  ", "  ".join(map(str, bot)))
 
 
+# Display original matrix
 print("Original matrix: ")
-print_matrix()
+print_matrix(matrix)
+
+# Make pool of values for each cell
+pools = deepcopy(matrix)
+pre_populate_matrix()
+pre_populate_pool(pools)
+
+# Print pool of values
+print_matrix(pools)
+
+# Run
 backtrack()
+
+# Result
 print("Resolved matrix: ")
-print_matrix()
+print_matrix(matrix)

@@ -19,11 +19,18 @@ Correct cells are marked Green and incorrect cells are marked Red on BrainBasher
 ![image](https://user-images.githubusercontent.com/39042628/64927161-12819980-d7d5-11e9-9868-6312fb41eb6c.png)
 
 #### Limitation:
-This algorithm does not support problems with missing condition similar to the following. This feature will be added in the future
+Because of nature of backtracking, problems with missing condition similar to the following increases number of guesses exponentially. This problem can be fixed by pre-populating a pool of guesses for each cell before running. For example, `Cell(row = 7, col = 8)`'s value must be`9` because of the condition `1` to the right. 
+
+Furthermore, pool of values is also restricted by the surrounding conditions. For example, in col 6, `6` on top means that:
+ - `9` cannot be in any of the first 5 rows 
+ - `8` cannot be in any of the first 4 rows
+ - `7` cannot be in any of the first 3 rows
+ - `6` cannot be in any of the first 2 rows
+ - `5` cannot be in the first row 
 
 ![image](https://user-images.githubusercontent.com/39042628/64927210-c08d4380-d7d5-11e9-9738-85dfbb0b75e0.png)
 
 #### Future features:
-- Solve problems with missing condition
+- Pre-populate a pool of values for each cell based on top, bot, left, right
 - Use Image recognition to automatically get matrix instead of manually entering the value
 - Give url link to the problem and script can put in answer
