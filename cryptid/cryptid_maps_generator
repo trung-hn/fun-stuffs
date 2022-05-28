@@ -64,8 +64,8 @@ def save_clues_for_each_player(driver, folder, player_no):
 visited = set()
 drop_down = Select(driver.find_element(by=By.XPATH, value="//*[@id='ngfPlayers']"))
 
-for order in range(50, 101):
-    for player_no in (4, 5):
+for order in range(1, 101):
+    for player_no in (2, 3, 4, 5):
         drop_down.select_by_value(str(player_no))
         time.sleep(0.5)
         # Start Game
@@ -78,7 +78,7 @@ for order in range(50, 101):
         except:
             pass
         time.sleep(0.5)
-        folder = f"data/Basic {player_no} players/Game {order}/"
+        folder = f"data/Advance {player_no} players/Game {order}/"
         download_map_to_path(driver, folder + "map.png")
 
         # Save clues for each player
