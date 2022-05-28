@@ -1,0 +1,41 @@
+#%%
+from selenium import webdriver
+import time
+
+DRIVER_PATH = "D:\Workspace\sandbox\chromedriver.exe"
+driver = webdriver.Chrome(executable_path=DRIVER_PATH)
+driver.get("https://www.google.com/")
+
+#%%
+def get_graph(url):
+    q = [(None, None, None, url, 0)]
+    visited = set()
+    for name, id_, slg, url, depth in q:
+        driver.get(url)
+        for element in driver.find_elements_by_class_name("rec-grid-item"):
+            next_url = element.find_element_by_tag_name("a").get_attribute("href")
+            game_name = element.find_element_by_tag_name("h2").text
+            try:
+                _, game_id, slug = next_url.rsplit("/", 2)
+            except:
+                continue
+
+            if depth == 2:
+                print(len(visited), visited)
+                return
+
+            # Visited
+            if game_name in visited:
+                continue
+            visited.add(game_name)
+
+            print(game_name)
+            q.append(
+                (game_name, game_id, slug, next_url + "/recommendations", depth + 1)
+            )
+        print("--------")
+    #         time.sleep(0.5)
+    return visited
+
+
+rv = get_graph("https://boardgamegeek.com/boardgame/194655/santorini/recommendations")
