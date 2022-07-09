@@ -74,7 +74,7 @@ def add_fishes(ax, x, y, amt, color):
             )
 
 
-def add_tile(ax, x, y, color):
+def add_tile(ax, x, y, value, color):
     """Add a tile to the map"""
     ax.add_patch(
         RegularPolygon(
@@ -83,7 +83,7 @@ def add_tile(ax, x, y, color):
             radius=0.56,
             facecolor=color,
             alpha=0.2,
-            edgecolor="black",
+            edgecolor="black" if value else "none",
             linewidth=0.2,
         )
     )
@@ -98,7 +98,7 @@ def generate_map(pdf, i, size=DEFAULT_MAP_SIZE):
         x = col + 0.5 if row % 2 else col
         y = row * VERTICLE_SPACING
         color = FISH_COLORS[value]
-        add_tile(ax, x, y, color)
+        add_tile(ax, x, y, value, color)
         add_fishes(ax, x, y, value, color)
     plt.xlim([-1, size[1]])
     plt.ylim([-1, size[0]])
@@ -107,6 +107,7 @@ def generate_map(pdf, i, size=DEFAULT_MAP_SIZE):
         f"""Map {i}. Size: {size}. Ratio: {map_size.ratio}. Total: {map_size.tiles_cnt}""",
         fontsize=5,
     )
+    plt
     pdf.savefig()
     plt.close()
 
