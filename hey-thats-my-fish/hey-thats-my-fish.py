@@ -143,10 +143,11 @@ def generate_map(pdf, i, map_obj: MapObject):
     plt.close()
 
 
-def generate_maps(amt, map_obj, file_name="map.pdf"):
+def generate_maps(amt, size, type, file_name="map.pdf"):
     """Generate a number of maps and save them to a pdf"""
     with PdfPages(f"./{file_name}") as pdf:
         for i in range(1, amt + 1):
+            map_obj = MapObject(size, type)
             generate_map(pdf, i, map_obj)
             print(f"Generated {i} map")
 
@@ -158,6 +159,5 @@ if __name__ == "__main__":
     file_name = sys.argv[4]
     number_of_maps = int(sys.argv[5])
     print(f"Generating {number_of_maps} {type} maps with size {row}x{col}")
-    map_obj = MapObject((row, col), type)
-    generate_maps(number_of_maps, map_obj, file_name)
+    generate_maps(number_of_maps, (row, col), type, file_name)
     print("Done. File saved to ./" + file_name)
