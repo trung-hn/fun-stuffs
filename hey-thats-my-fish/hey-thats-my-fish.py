@@ -1,34 +1,54 @@
 # %%
 import random
-import sys
 from math import sin, cos, pi
 import matplotlib.pyplot as plt
 from matplotlib.patches import RegularPolygon, Circle
 from matplotlib.backends.backend_pdf import PdfPages
+import argparse
 
 DEFAULT_MAP_SIZE = (10, 10)
-DEFAULT_MAP_TYPE = "TRIANGLE"
+MAP_CHOICES = ["RECTANGLE", "TRIANGLE", "DIAMOND"]
+DEFAULT_MAP_TYPE = MAP_CHOICES[0]
 FISH_ALPHA = 0.5
 FISH_ANGLES = {i: [j / i * 2 * pi for j in range(i)] for i in range(2, 6)}
-FISH_COLORS = {0: "white", 1: "green", 2: "purple", 3: "orange", 4: "red", 5: "blue"}
+FISH_COLORS = ["white", "green", "purple", "orange", "red", "blue"]
 FISH_GROUP_RADIUS = 0.2
-FISH_RADIUS = {0: 0, 1: 0.13, 2: 0.12, 3: 0.11, 4: 0.10, 5: 0.09}
+FISH_RADIUS = [0, 0.13, 0.12, 0.11, 0.10, 0.09]
 FIVE_TILE_CHANCE = 0.05
 TILES_PERCENTAGE = [-1, 50, 33, 16, -1, -1]
 VERTICLE_SPACING = 0.866667
 ZERO_PERCENTAGES = (1, 10)
 
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--rows", type=int, help="Map size in rows", default=DEFAULT_MAP_SIZE[0]
+)
+parser.add_argument(
+    "--cols", type=int, help="Map size in columns", default=DEFAULT_MAP_SIZE[1]
+)
+parser.add_argument(
+    "--shape",
+    help="Shape of the map. DEFAULT: RANDOM",
+    choices=MAP_CHOICES,
+    default="RANDOM",
+)
+parser.add_argument("--no", help="Number of maps to generate", default=1, type=int)
+parser.add_argument("--out", help="Output file name", default="map.pdf")
+args = parser.parse_args()
+
 
 class MapObject:
-    def __init__(self, size=DEFAULT_MAP_SIZE, type=DEFAULT_MAP_TYPE) -> None:
+    def __init__(self, type=DEFAULT_MAP_TYPE, size=DEFAULT_MAP_SIZE) -> None:
         self.size = size
-        self._type = type
+        self.type = type
         self._ratio = None
         self._map = None
         if type == "RECTANGLE":
-            self._map = self._generate_rect_map(*size)
+            self._map = self._generate_rect_map()
         elif type == "TRIANGLE":
-            self._map = self._generate_tri_map(*size)
+            self._map = self._generate_tri_map()
+        elif type == "DIAMOND":
+            self._map = self._generate_diamond_map()
 
     @property
     def map(self) -> list:
@@ -40,8 +60,10 @@ class MapObject:
 
     @property
     def C(self) -> int:
-        if self._type == "TRIANGLE":
+        if self.type == "TRIANGLE":
             return self.R + 1
+        elif self.type == "DIAMOND":
+            return int(self.R * 1.5 + 1)
         return self.size[1]
 
     @property
@@ -52,21 +74,32 @@ class MapObject:
     def tiles_cnt(self) -> tuple:
         return sum(self._ratio[1:])
 
-    def _generate_rect_map(self, R, C) -> None:
+    def _generate_rect_map(self) -> None:
         """Generate map."""
+        R, C = self.R, self.C
         pts = self._generate_pts(R * C)
         return [(r, c, pts.pop()) for r in range(R) for c in range(C)]
 
-    def _generate_tri_map(self, R, C) -> None:
+    def _generate_tri_map(self) -> None:
         """Generate map."""
+        R, C = self.R, self.C
         pts = self._generate_pts(R * (R + 1) // 2)
         rv = []
         for r in range(R):
             for c in range(C):
-                if c * 2 > r and c * 2 + r <= R * 2:
-                    rv.append((r, c, pts.pop()))
-                else:
-                    rv.append((r, c, 0))
+                fish = pts.pop() if c * 2 > r and c * 2 + r <= R * 2 else 0
+                rv.append((r, c, fish))
+        return rv
+
+    def _generate_diamond_map(self) -> None:
+        """Generate map."""
+        R, C = self.R, self.C
+        pts = self._generate_pts(R * R)
+        rv = []
+        for r in range(R):
+            for c in range(C):
+                fish = pts.pop() if c * 2 > r and c * 2 <= r + R * 2 else 0
+                rv.append((r, c, fish))
         return rv
 
     def _generate_pts(self, area) -> None:
@@ -134,7 +167,7 @@ def generate_map(pdf, i, map_obj: MapObject):
     plt.ylim([-1, map_obj.R])
     plt.axis("off")
     plt.title(
-        f"""Map {i}. Size: {map_obj.size}. Ratio: {map_obj.ratio}. Total: {map_obj.tiles_cnt}. \n
+        f"""Map {i}. Type: {map_obj.type}. Size: {map_obj.size}. Ratio: {map_obj.ratio}. Tiles: {map_obj.tiles_cnt}. \n
         Ref: bit.ly/fish-map-gen""",
         fontsize=7,
     )
@@ -143,21 +176,19 @@ def generate_map(pdf, i, map_obj: MapObject):
     plt.close()
 
 
-def generate_maps(amt, size, type, file_name="map.pdf"):
+def generate_maps(args):
     """Generate a number of maps and save them to a pdf"""
-    with PdfPages(f"./{file_name}") as pdf:
-        for i in range(1, amt + 1):
-            map_obj = MapObject(size, type)
+    print(f"Generating {args.no} {args.shape} maps with size {args.rows}x{args.cols}")
+    with PdfPages(f"./{args.out}") as pdf:
+        for i in range(1, args.no + 1):
+            shape = args.shape
+            if shape == "RANDOM":
+                shape = random.choice(MAP_CHOICES)
+            map_obj = MapObject(shape, (args.rows, args.cols))
             generate_map(pdf, i, map_obj)
             print(f"Generated {i} map")
+    print("Done. File saved to ./" + args.out)
 
 
 if __name__ == "__main__":
-    type = sys.argv[1]
-    row = int(sys.argv[2])
-    col = int(sys.argv[3])
-    file_name = sys.argv[4]
-    number_of_maps = int(sys.argv[5])
-    print(f"Generating {number_of_maps} {type} maps with size {row}x{col}")
-    generate_maps(number_of_maps, (row, col), type, file_name)
-    print("Done. File saved to ./" + file_name)
+    generate_maps(args)
