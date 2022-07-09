@@ -6,4 +6,4 @@
 
 ## [Hey, That's My Fish Map Generator](https://github.com/trung-hn/fun-stuffs/tree/master/hey-thats-my-fish)
 
-![image](https://user-images.githubusercontent.com/39042628/178087846-05b07e50-06e8-45e1-8d72-9d8d767d4e13.png)
+![image](https://user-images.githubusercontent.com/39042628/178089373-a4906703-18e2-4013-9035-c5949ca1d881.png)
