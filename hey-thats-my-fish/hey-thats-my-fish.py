@@ -104,7 +104,8 @@ def generate_map(pdf, i, size=DEFAULT_MAP_SIZE):
     plt.ylim([-1, size[0]])
     plt.axis("off")
     plt.title(
-        f"""Map {i}. Size: {size}. Ratio: {map_size.ratio}. Total: {map_size.tiles_cnt}. \nRef: bit.ly/fish-map-gen""",
+        f"""Map {i}. Size: {size}. Ratio: {map_size.ratio}. Total: {map_size.tiles_cnt}. \n
+        Ref: bit.ly/fish-map-gen""",
         fontsize=7,
     )
     plt

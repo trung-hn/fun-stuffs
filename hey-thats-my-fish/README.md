@@ -4,7 +4,7 @@ Game page: [BGG link](https://boardgamegeek.com/boardgame/8203/hey-s-my-fish)
 
 ## Example
 
-![image](https://user-images.githubusercontent.com/39042628/178087846-05b07e50-06e8-45e1-8d72-9d8d767d4e13.png)
+![image](https://user-images.githubusercontent.com/39042628/178089196-e6f507b6-4c82-4da0-a15f-de7e406ddb28.png)
 
 ## How to run script
 
