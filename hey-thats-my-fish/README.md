@@ -11,7 +11,13 @@ Game page: [BGG link](https://boardgamegeek.com/boardgame/8203/hey-s-my-fish)
 ```bash
 cd hey-thats-my-fish
 pip install -r requirements.txt
-python hey-thats-my-fish.py 10 15 map.pdf 20
+python hey-thats-my-fish.py RECTANGLE 10 15 map.pdf 20
 ```
 
-This will generate 20 maps with size 10x15 and save them to `./map.pdf`.
+This will generate 20 RECTANGLE maps with size 10x15 and save them to `./map.pdf`.
+
+```bash
+python hey-thats-my-fish.py TRIANGLE 10 15 map.pdf 10
+```
+
+This will generate 10 TRIANGLE maps with size 10x15 and save them to `./map.pdf`.
