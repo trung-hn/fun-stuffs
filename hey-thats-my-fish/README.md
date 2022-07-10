@@ -2,14 +2,6 @@
 
 Game page: [BGG link](https://boardgamegeek.com/boardgame/8203/hey-s-my-fish)
 
-## How to run script
-
-```bash
-cd hey-thats-my-fish
-pip install -r requirements.txt
-python hey-thats-my-fish.py --rows 12 --cols 12 --no 100 --out map.pdf
-```
-
 ## Usages
 
 ```bash
@@ -25,6 +17,14 @@ optional arguments:
                         Shape of the map. DEFAULT: RANDOM
   --no NO               Number of maps to generate
   --out OUT             Output file name
+```
+
+## How to run script
+
+```bash
+cd hey-thats-my-fish
+pip install -r requirements.txt
+python hey-thats-my-fish.py --rows 12 --cols 12 --no 100 --out map.pdf
 ```
 
 This will generate 100 maps with RANDOM shape (RECTANGLE or TRIANGLE or DIAMOND) with size 12x12 and save them to `map.pdf`.
