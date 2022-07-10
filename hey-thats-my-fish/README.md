@@ -10,6 +10,23 @@ pip install -r requirements.txt
 python hey-thats-my-fish.py --rows 12 --cols 12 --no 100 --out map.pdf
 ```
 
+## Usages
+
+```bash
+$ python hey-thats-my-fish.py --help
+usage: hey-thats-my-fish.py [-h] [--rows ROWS] [--cols COLS] [--shape {RECTANGLE,TRIANGLE,DIAMOND}] [--no NO]
+                            [--out OUT]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --rows ROWS           Map size in rows
+  --cols COLS           Map size in columns
+  --shape {RECTANGLE,TRIANGLE,DIAMOND}
+                        Shape of the map. DEFAULT: RANDOM
+  --no NO               Number of maps to generate
+  --out OUT             Output file name
+```
+
 This will generate 100 maps with RANDOM shape (RECTANGLE or TRIANGLE or DIAMOND) with size 12x12 and save them to `map.pdf`.
 
 ## Example
