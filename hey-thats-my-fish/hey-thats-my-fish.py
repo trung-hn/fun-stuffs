@@ -1,6 +1,6 @@
 # %%
 import random
-from math import sin, cos, pi
+from math import sin, cos, pi, ceil
 import matplotlib.pyplot as plt
 from matplotlib.patches import RegularPolygon, Circle
 from matplotlib.backends.backend_pdf import PdfPages
@@ -8,16 +8,14 @@ import argparse
 
 DEFAULT_MAP_SIZE = (10, 10)
 MAP_CHOICES = ["RECTANGLE", "TRIANGLE", "DIAMOND"]
-DEFAULT_MAP_TYPE = MAP_CHOICES[0]
-FISH_ALPHA = 0.5
 FISH_ANGLES = {i: [j / i * 2 * pi for j in range(i)] for i in range(6)}
-FISH_COLORS = ["white", "green", "purple", "orange", "red", "blue"]
+COLORS = ["white", "green", "purple", "orange", "red", "blue"]
 FISH_GROUP_RADIUS = [0, 0.2, 0.2, 0.2, 0.2, 0.2]
 FISH_RADIUS = [0, 0.13, 0.12, 0.11, 0.10, 0.09]
 FIVE_TILE_CHANCE = 0.05
 TILES_PERCENTAGE = [-1, 50, 33, 16, -1, -1]
 VERTICLE_SPACING = 0.866667
-ZERO_PERCENTAGES = (1, 10)
+ZERO_PERCENTAGES = (0, 10)
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -38,7 +36,7 @@ args = parser.parse_args()
 
 
 class MapObject:
-    def __init__(self, type=DEFAULT_MAP_TYPE, size=DEFAULT_MAP_SIZE) -> None:
+    def __init__(self, type, size=DEFAULT_MAP_SIZE) -> None:
         self.size = size
         self.type = type
         self._ratio = None
@@ -61,14 +59,18 @@ class MapObject:
     @property
     def C(self) -> int:
         if self.type == "TRIANGLE":
-            return self.R + 1
+            return self.R
         elif self.type == "DIAMOND":
-            return int(self.R * 1.5 + 1)
+            return ceil(self.R * 1.5 - 1)
         return self.size[1]
 
     @property
     def ratio(self) -> float:
         return self._ratio
+
+    @property
+    def total(self) -> float:
+        return sum(i * v for i, v in enumerate(self.ratio))
 
     @property
     def tiles_cnt(self) -> tuple:
@@ -87,7 +89,7 @@ class MapObject:
         rv = []
         for r in range(R):
             for c in range(C):
-                fish = fishes.pop() if r < c * 2 <= R * 2 - r else 0
+                fish = fishes.pop() if r <= c * 2 + 1 < R * 2 - r else 0
                 rv.append((r, c, fish))
         return rv
 
@@ -98,7 +100,7 @@ class MapObject:
         rv = []
         for r in range(R):
             for c in range(C):
-                fish = fishes.pop() if r < c * 2 <= r + R * 2 else 0
+                fish = fishes.pop() if r <= c * 2 + 1 < r + R * 2 else 0
                 rv.append((r, c, fish))
         return rv
 
@@ -129,9 +131,7 @@ def add_fishes(ax, x, y, amt):
     for deg in FISH_ANGLES[amt]:
         cx = FISH_GROUP_RADIUS[amt] * cos(deg) + x
         cy = FISH_GROUP_RADIUS[amt] * sin(deg) + y
-        ax.add_patch(
-            Circle((cx, cy), FISH_RADIUS[amt], color=FISH_COLORS[amt], alpha=FISH_ALPHA)
-        )
+        ax.add_patch(Circle((cx, cy), FISH_RADIUS[amt], color=COLORS[amt], alpha=0.5))
 
 
 def add_tile(ax, x, y, amt):
@@ -140,8 +140,8 @@ def add_tile(ax, x, y, amt):
         RegularPolygon(
             (x, y),
             numVertices=6,
-            radius=0.56,
-            facecolor=FISH_COLORS[amt],
+            radius=0.55,
+            facecolor=COLORS[amt],
             alpha=0.2,
             edgecolor="black" if amt else "none",
             linewidth=0.2,
@@ -159,7 +159,7 @@ def generate_map(map_obj: MapObject):
         add_tile(ax, x, y, quantity)
         add_fishes(ax, x, y, quantity)
     plt.xlim([-1, map_obj.C])
-    plt.ylim([-1, map_obj.R])
+    plt.ylim([-1, map_obj.R * VERTICLE_SPACING])
     plt.axis("off")
     return plt
 
@@ -175,8 +175,9 @@ def generate_maps(args):
             map_obj = MapObject(shape, (args.rows, args.cols))
             plt = generate_map(map_obj)
             plt.title(
-                f"""Map {i}. Type: {map_obj.type}. Size: {map_obj.size}. Ratio: {map_obj.ratio}. Tiles: {map_obj.tiles_cnt}. \n
-                Ref: bit.ly/fish-map-gen""",
+                f"Map {i}. Type: {map_obj.type}. Size: {map_obj.size}. "
+                f"Ratio: {map_obj.ratio}. Tiles: {map_obj.tiles_cnt}. Total: {map_obj.total}. \n"
+                f"Ref: bit.ly/fish-map-gen",
                 fontsize=7,
             )
             pdf.savefig()
