@@ -5,7 +5,7 @@ import requests
 import json
 
 
-def request_and_archive_data():
+def request_and_archive_data(year=2022):
     """
     Request data from the given url.
     """
@@ -13,7 +13,7 @@ def request_and_archive_data():
     skip = 0
     while 1:
         res = requests.get(
-            f"https://api.opencritic.com/api/game?platforms=pc&sort=score&time=2022&order=desc&skip={skip}"
+            f"https://api.opencritic.com/api/game?platforms=pc&sort=score&time={year}&order=desc&skip={skip}"
             ""
         )
         print(skip)
@@ -58,7 +58,7 @@ def main():
             game["id"],
         )
         if game_info.tier in ("Mighty",):
-        # if game_info.tier in ("Mighty", "Strong"):
+            # if game_info.tier in ("Mighty", "Strong"):
             if game_info.name in ignored:
                 continue
             left_overs.append(game_info.name)
