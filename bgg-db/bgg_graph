@@ -1,9 +1,9 @@
 #%%
 from selenium import webdriver
-import time
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
-DRIVER_PATH = "D:\Workspace\sandbox\chromedriver.exe"
-driver = webdriver.Chrome(executable_path=DRIVER_PATH)
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 driver.get("https://www.google.com/")
 
 #%%
@@ -39,3 +39,5 @@ def get_graph(url):
 
 
 rv = get_graph("https://boardgamegeek.com/boardgame/194655/santorini/recommendations")
+
+# %%
