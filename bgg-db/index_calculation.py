@@ -70,12 +70,12 @@ with open("plays.txt", "w") as f:
         f"h-index = {hi}. e-index = {ei}.",
         f"g-index = {gi}",
         f"i10-index = {i10}",
-        f"avg index = {(hi + gi + i10)/3}"
+        f"avg index = {(hi + gi + i10)/3}",
     ]
     f.write("\n".join(to_write))
 
 print(f"h-index = {hi}. e-index = {ei}.")
-print(f"g-index = {gi}")
+print(f"g-index = {gi}. Needed for next g: {(gi+1)**2 - sum(counters[:gi])}")
 print(f"i10-index = {i10}")
 print(f"avg index = {(hi + gi + i10)/3}")
 
