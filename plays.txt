@@ -1,0 +1,4 @@
+h-index = 15. e-index = 24.535688292770594.
+g-index = 31
+i10-index = 26
+avg index = 24.0
