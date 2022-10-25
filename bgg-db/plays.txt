@@ -1,4 +1,4 @@
-h-index = 14. e-index = 24.392621835300936.
-g-index = 31
-i10-index = 25
-avg index = 23.333333333333332
+h-index = 15. e-index = 25.059928172283335.
+g-index = 32
+i10-index = 27
+avg index = 24.666666666666668
