@@ -3,6 +3,16 @@ from dataclasses import dataclass
 from re import I
 import requests
 import json
+import time
+
+url = "https://opencritic-api.p.rapidapi.com/game"
+
+querystring = {"platforms": "ps4,ps5", "skip": "20"}
+
+headers = {
+    "X-RapidAPI-Key": "9fb706059bmsh1fba0cc07e843bfp126b2bjsn2719442bcbb7",
+    "X-RapidAPI-Host": "opencritic-api.p.rapidapi.com",
+}
 
 
 def request_and_archive_data(year=2022):
@@ -12,18 +22,19 @@ def request_and_archive_data(year=2022):
     data = []
     skip = 0
     while 1:
-        res = requests.get(
-            f"https://api.opencritic.com/api/game?platforms=pc&sort=score&time={year}&order=desc&skip={skip}"
-            ""
-        )
+        params = {
+            "platforms": "pc",
+            "sort": "score",
+            "order": "desc",
+            "skip": skip,
+        }
+        res = requests.get(url, headers=headers, params=params)
+        time.sleep(0.25)
         print(skip)
-        if res.json():
-            data.extend(res.json())
-            if 0 < data[-1]["topCriticScore"] < 75:
-                break
-            skip += 20
-        else:
+        data.extend(res.json())
+        if 0 < data[-1]["topCriticScore"] < 75:
             break
+        skip += 20
     json.dump(data, open("data.json", "w"))
 
 
