@@ -1,15 +1,18 @@
 #%%
+import numpy as np
 from collections import defaultdict
 import matplotlib.pyplot as plt
 from records import matches, ratings
+
+from scipy.interpolate import make_interp_spline, BSpline
 
 ratings = {"Trung": 1500, "Michael": 1500, "Asier": 1500, "Christian": 1500}
 
 # Theory: https://towardsdatascience.com/developing-a-generalized-elo-rating-system-for-multiplayer-games-b9b495e87802
 
-DIFF = 600
-K = 32
-ALPHA = 2
+DIFF = 700
+K = 50
+ALPHA = 4
 
 
 class History:
@@ -77,6 +80,8 @@ def final_scores(pos, no_pos=2, alpha=ALPHA):
         How many points 1st winner gets compared to 2nd and 3rd.
         Only matters in games with > 2 final position
     """
+    if no_pos == 1:
+        return 0.5
     num = alpha ** (no_pos - pos) - 1
     den = sum(alpha ** (no_pos - i) - 1 for i in range(1, no_pos + 1))
     return num / den
