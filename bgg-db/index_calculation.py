@@ -68,7 +68,7 @@ i10 = i10_index(counters)
 with open("plays.txt", "w") as f:
     to_write = [
         f"h-index = {hi}. e-index = {ei}.",
-        f"g-index = {gi}",
+        f"g-index = {gi}. Needed for next g: {(gi+1)**2 - sum(counters[:gi])}",
         f"i10-index = {i10}",
         f"avg index = {(hi + gi + i10)/3}",
     ]
