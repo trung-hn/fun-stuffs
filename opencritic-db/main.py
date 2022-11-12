@@ -7,8 +7,6 @@ import time
 
 url = "https://opencritic-api.p.rapidapi.com/game"
 
-querystring = {"platforms": "ps4,ps5", "skip": "20"}
-
 headers = {
     "X-RapidAPI-Key": "9fb706059bmsh1fba0cc07e843bfp126b2bjsn2719442bcbb7",
     "X-RapidAPI-Host": "opencritic-api.p.rapidapi.com",
