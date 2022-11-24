@@ -8,25 +8,34 @@ initial_ratings = {
     "Trevin": 1500,
 }
 """
-weight:
-    1-5, based on bgg, higher => more complex => worth more pts
-randomness:
-    1-5, voted, higher => more random => worth less pts
-length:
-    5-minute step, cap at 120 minutes, longer => worth more pts
+Game Characteristic:
+    weight (contribute 40%):
+        1-5, based on bgg, higher => more complex => worth more pts
+    randomness (contribute 30%):
+        1-5, voted, higher => more random => worth less pts
+        Example:
+            1 means no luck e.g. Chess
+            2 means no luck after set up e.g. Hey that's my fish
+            3 means once a turn e.g. Caesar
+            4 means multiple times a turn
+            5 means luck fest e.g. Monopoly
+    length (contribute 30%):
+        5-minute step, cap at 120 minutes, longer => worth more pts
 """
-game_info = {
+game_characteristic = {
     "Critters at War": [1.69, 4, 15],
     "Caesar!": [1.89, 3, 20],
     "Fish": [1.45, 2, 10],
     "Jekyll vs Hyde": [1.85, 3, 15],
     "The Fox in the Forest": [1.57, 3, 25],
     "The Quest for El Dorado": [1.93, 3, 60],
-    "Illusion": [1.07, 5, 15],
+    "Illusion": [1.07, 4, 15],
     "Barenpark": [1.65, 1, 30],
-    "Chess": [3.68, 1, 50],
+    "Chess": [3.68, 1, 60],
     "TFA": [2.92, 4, 60],
     "Spirit Island": [4.06, 2, 120],
+    "Maximum Point": [5, 1, 120],
+    "Minimum Point": [1, 5, 5],
 }
 
 matches = [

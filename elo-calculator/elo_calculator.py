@@ -1,8 +1,9 @@
 from collections import defaultdict
 from typing import List
 import matplotlib.pyplot as plt
-from records import matches, initial_ratings, game_info
+from records import matches, initial_ratings, game_characteristic
 from datetime import date
+from math import sqrt
 
 # Theory: https://towardsdatascience.com/developing-a-generalized-elo-rating-system-for-multiplayer-games-b9b495e87802
 
@@ -38,13 +39,23 @@ class History:
         return str(self._ratings)
 
 
+def z_score(game):
+    weight, randomness, length = game_characteristic[game]
+    # return 2 ** weight * 10 + (5 - randomness) * 5 + length / 120 * 30
+    return (
+        sqrt(16 - (5 - weight) ** 2) * 10 + (5 - randomness) * 7.5 + length / 120 * 30
+    )
+
+
 def game_award(game):
     """
     Return the adjusted reward of a game based on its characteristic
     """
-    weight, randomness, length = game_info[game]
-    z_score = 2 ** weight * 10 + (5 - randomness) * 5 + length / 120 * 30
-    return z_score / 100 * CHANGE_PER_GAME
+    return z_score(game) / 100 * CHANGE_PER_GAME
+
+
+for game in game_characteristic:
+    print(game, round(z_score(game), 2))
 
 
 def winning_probability(ratings: dict, diff: int = DIFF):
