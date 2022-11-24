@@ -16,8 +16,8 @@ Game Characteristic:
         Example:
             1 means no luck e.g. Chess
             2 means no luck after set up e.g. Hey that's my fish
-            3 means once a turn e.g. Caesar
-            4 means multiple times a turn
+            3 means little luck e.g. Caesar
+            4 means luck affects the game greatly e.g Critters at War
             5 means luck fest e.g. Monopoly
     length (contribute 30%):
         5-minute step, cap at 120 minutes, longer => worth more pts
