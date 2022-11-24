@@ -1,13 +1,14 @@
 from collections import defaultdict
+from typing import List
 import matplotlib.pyplot as plt
-from records import matches, initial_ratings as ratings, z_score
+from records import matches, initial_ratings, game_info
 from datetime import date
 
 # Theory: https://towardsdatascience.com/developing-a-generalized-elo-rating-system-for-multiplayer-games-b9b495e87802
 
 DIFF = 800
-K = 60
-ALPHA = 1.1
+CHANGE_PER_GAME = 60  # how much does winner get awarded
+ALPHA = 1.1  # how much does 1st pos win compared to 2nd and 3rd (only matter in 2+ player games)
 OFFSET_PER_GAME = 2
 
 
@@ -37,14 +38,13 @@ class History:
         return str(self._ratings)
 
 
-def game_characteristic(weight, randomness, length):
+def game_award(game):
     """
-    Weight (1-5 on bgg, higher => more complex => more change)", 50 %
-    Randomness (1-5, voted, higher => more random => less change)", 20 %
-    Length (5-minute step, cap at 120 minutes), higher => more change"] 30 %
+    Return the adjusted reward of a game based on its characteristic
     """
-    result = 2 ** weight * 10 + (5 - randomness) * 5 + length / 120 * 30
-    return result
+    weight, randomness, length = game_info[game]
+    z_score = 2 ** weight * 10 + (5 - randomness) * 5 + length / 120 * 30
+    return z_score / 100 * CHANGE_PER_GAME
 
 
 def winning_probability(ratings: dict, diff: int = DIFF):
@@ -72,7 +72,7 @@ def winning_probability(ratings: dict, diff: int = DIFF):
     return rv
 
 
-def final_scores(pos, no_pos=2, alpha=ALPHA):
+def final_score(pos, no_pos=2):
     """
     Calculate final score based on winning position.
 
@@ -84,14 +84,14 @@ def final_scores(pos, no_pos=2, alpha=ALPHA):
         Number of positions in the game
     alpha:
         How many points 1st winner gets compared to 2nd and 3rd.
-        Only matters in games with > 2 final position
+        Only matters in games with > 2 final positions
     """
-    num = alpha ** (no_pos - pos) - 1
-    den = sum(alpha ** (no_pos - i) - 1 for i in range(1, no_pos + 1))
+    num = ALPHA ** (no_pos - pos) - 1
+    den = sum(ALPHA ** (no_pos - i) - 1 for i in range(1, no_pos + 1))
     return num / den
 
 
-def calculate_new_ratings(ratings, match, award=K):
+def calculate_new_ratings(ratings, match, game):
     """
     Calculate new ratings for each player
 
@@ -102,29 +102,21 @@ def calculate_new_ratings(ratings, match, award=K):
     match:
         Match result.
         [[A], [B, C], [D]] means A ranks 1st, B & C both rank 2nd, D ranks last
-    award: how much does winner get awarded
     """
-    game = match[-1][1]
-    match = match[:-1]
-    players = []
+    participants = [name for names in match for name in names]
+    player_ratings = {name: ratings[name] for name in participants}
+    winning_chance = winning_probability(player_ratings)
+
     player_scores = {}
-    player_ratings = {}
     for pos, names in enumerate(match, 1):
         for name in names:
-            players.append(name)
-            player_scores[name] = final_scores(pos, len(match)) / len(names)
-            player_ratings[name] = ratings[name]
+            player_scores[name] = final_score(pos, len(match)) / len(names)
 
-    win_chance = winning_probability(player_ratings)
-
-    gc = game_characteristic(*z_score[game])
-    for name in players:
+    for name in participants:
         ratings[name] += (
-            award
-            * gc
-            / 100
-            * (len(players) - 1)
-            * (player_scores[name] - win_chance[name])
+            game_award(game)
+            * (len(participants) - 1)
+            * (player_scores[name] - winning_chance[name])
         ) + OFFSET_PER_GAME
     return ratings
 
@@ -147,9 +139,9 @@ def plot_hist(history):
 
 
 def main():
-    history = History(ratings)
-    for match in matches:
-        history.ratings = calculate_new_ratings(ratings, match)
+    history = History(initial_ratings)
+    for *match, (game, *_) in matches:
+        history.ratings = calculate_new_ratings(initial_ratings, match, game)
     plot_hist(history)
 
 
