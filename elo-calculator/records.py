@@ -30,7 +30,7 @@ game_characteristic = {
     "The Fox in the Forest": [1.57, 3, 25],
     "The Quest for El Dorado": [1.93, 3, 60],
     "Illusion": [1.07, 4, 15],
-    "Barenpark": [1.65, 1, 30],
+    "Barenpark": [1.65, 2, 45],
     "Chess": [3.68, 1, 60],
     "TFA": [2.92, 4, 60],
     "Spirit Island": [4.06, 2, 120],
