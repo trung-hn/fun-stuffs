@@ -1,18 +1,14 @@
-#%%
-import numpy as np
 from collections import defaultdict
 import matplotlib.pyplot as plt
-from records import matches, ratings
-
-from scipy.interpolate import make_interp_spline, BSpline
-
-ratings = {"Trung": 1500, "Michael": 1500, "Asier": 1500, "Christian": 1500}
+from records import matches, initial_ratings as ratings, z_score
+from datetime import date
 
 # Theory: https://towardsdatascience.com/developing-a-generalized-elo-rating-system-for-multiplayer-games-b9b495e87802
 
-DIFF = 700
-K = 50
-ALPHA = 4
+DIFF = 800
+K = 60
+ALPHA = 1.1
+OFFSET_PER_GAME = 2
 
 
 class History:
@@ -35,10 +31,20 @@ class History:
         self.update_history()
 
     def reset_ratings(self, ratings):
-        return {k: max(1400, v) for k, v in ratings.items()}
+        return {k: max(100, v) for k, v in ratings.items()}
 
     def __repr__(self) -> str:
         return str(self._ratings)
+
+
+def game_characteristic(weight, randomness, length):
+    """
+    Weight (1-5 on bgg, higher => more complex => more change)", 50 %
+    Randomness (1-5, voted, higher => more random => less change)", 20 %
+    Length (5-minute step, cap at 120 minutes), higher => more change"] 30 %
+    """
+    result = 2 ** weight * 10 + (5 - randomness) * 5 + length / 120 * 30
+    return result
 
 
 def winning_probability(ratings: dict, diff: int = DIFF):
@@ -80,8 +86,6 @@ def final_scores(pos, no_pos=2, alpha=ALPHA):
         How many points 1st winner gets compared to 2nd and 3rd.
         Only matters in games with > 2 final position
     """
-    if no_pos == 1:
-        return 0.5
     num = alpha ** (no_pos - pos) - 1
     den = sum(alpha ** (no_pos - i) - 1 for i in range(1, no_pos + 1))
     return num / den
@@ -100,32 +104,45 @@ def calculate_new_ratings(ratings, match, award=K):
         [[A], [B, C], [D]] means A ranks 1st, B & C both rank 2nd, D ranks last
     award: how much does winner get awarded
     """
+    game = match[-1][1]
+    match = match[:-1]
     players = []
     player_scores = {}
     player_ratings = {}
     for pos, names in enumerate(match, 1):
         for name in names:
             players.append(name)
-            player_scores[name] = final_scores(pos, len(match))
+            player_scores[name] = final_scores(pos, len(match)) / len(names)
             player_ratings[name] = ratings[name]
 
     win_chance = winning_probability(player_ratings)
+
+    gc = game_characteristic(*z_score[game])
     for name in players:
         ratings[name] += (
-            award * (len(players) - 1) * (player_scores[name] - win_chance[name])
-        )
+            award
+            * gc
+            / 100
+            * (len(players) - 1)
+            * (player_scores[name] - win_chance[name])
+        ) + OFFSET_PER_GAME
     return ratings
 
 
 def plot_hist(history):
     _, ax = plt.subplots(figsize=(10, 7))
+    total = 0
     for person, scores in history.history.items():
-        plt.plot(scores, label=person, marker="o")
+        plt.plot(scores, label=person, marker=".")
         x, y = len(scores) - 1, scores[-1] + 0.2
         ax.annotate(round(scores[-1]), (x, y))
+        total += scores[-1]
     plt.legend(loc="upper left")
     plt.ylabel("Rating")
     plt.xlabel("Play")
+    plt.title(
+        f"Ratings as of {date.today()}. \nExtra Elo Points to the pool: {total % 1500} (Offset/player = {OFFSET_PER_GAME})"
+    )
     plt.show()
 
 
@@ -138,5 +155,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# %%
