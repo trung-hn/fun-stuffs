@@ -9,9 +9,9 @@ initial_ratings = {
 }
 """
 Game Characteristic:
-    weight (contribute 40%):
+    weight (contribute 35%):
         1-5, based on bgg, higher => more complex => worth more pts
-    randomness (contribute 30%):
+    randomness (contribute 25%):
         1-5, voted, higher => more random => worth less pts
         Description
             1: no luck e.g. Chess
@@ -19,29 +19,32 @@ Game Characteristic:
             3: moderate amount of luck, but skill is still the main deciding factor e.g. Caesar
             4: luck affects the game greatly e.g Critters at War
             5: luck fest, might as well roll a dice to decide the winner e.g. Monopoly
-    length (contribute 30%):
+    length (contribute 20%):
         5-minute step, cap at 120 minutes, longer => worth more pts
-    symmetry:
-        1-3, votes, higher => players start with balance state => worth more pts
+    asymmetry (contribute 20%):
+        1-5, votes, higher => players start with more unbalanced state => worth less pts
+        This is somewhat related to randomness
         Description:
-            1: clear advantages
-            2: unclear advtanges
-            3: balance starting point
+            1: players start with same state e.g. Chess
+            2: players start with small potential imbalance. Games where player order matter e.g. Hey's that my fish
+            3: players start with moderate potentital imbalance. Card games like Critters at War, Jekyll vs Hyde
+            4: players start with huge potential imbalance e.g. Unmatched
+            5: players start with obvious imbalance
 """
 game_characteristic = {
-    "Critters at War": [1.69, 4, 15],
-    "Caesar!": [1.89, 3, 20],
-    "Fish": [1.45, 2, 10],
-    "Jekyll vs Hyde": [1.85, 3, 15],
-    "The Fox in the Forest": [1.57, 3, 25],
-    "The Quest for El Dorado": [1.93, 3, 60],
-    "Illusion": [1.07, 4, 15],
-    "Barenpark": [1.65, 2, 45],
-    "Chess": [3.68, 1, 60],
-    "TFA": [2.92, 4, 60],
-    "Spirit Island": [4.06, 2, 120],
-    "Maximum Point": [5, 1, 120],
-    "Minimum Point": [1, 5, 5],
+    "Critters at War": [1.69, 3, 15, 3],
+    "Caesar!": [1.89, 3, 20, 2],
+    "Fish": [1.45, 2, 10, 2],
+    "Jekyll vs Hyde": [1.85, 3, 15, 3],
+    "The Fox in the Forest": [1.57, 3, 25, 3],
+    "The Quest for El Dorado": [1.93, 3, 60, 1],
+    "Illusion": [1.07, 4, 15, 1],
+    "Barenpark": [1.65, 2, 45, 2],
+    "Chess": [3.68, 1, 60, 1],
+    "TFA": [2.92, 4, 60, 1],
+    "Spirit Island": [4.06, 2, 120, 5],
+    "Maximum Point": [5, 1, 120, 1],
+    "Minimum Point": [1, 5, 5, 5],
 }
 
 matches = [

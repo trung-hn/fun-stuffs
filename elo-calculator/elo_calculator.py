@@ -40,10 +40,13 @@ class History:
 
 
 def z_score(game):
-    weight, randomness, length = game_characteristic[game]
+    weight, randomness, length, asymmetry = game_characteristic[game]
     # return 2 ** weight * 10 + (5 - randomness) * 5 + length / 120 * 30
     return (
-        sqrt(16 - (5 - weight) ** 2) * 10 + (5 - randomness) * 7.5 + length / 120 * 30
+        sqrt(16 - (5 - weight) ** 2) * 10 / 4 * 3.5
+        + (5 - randomness) * 6.25
+        + length / 120 * 20
+        + (5 - asymmetry) * 5
     )
 
 
@@ -100,6 +103,10 @@ def final_score(pos, no_pos=2):
     num = ALPHA ** (no_pos - pos) - 1
     den = sum(ALPHA ** (no_pos - i) - 1 for i in range(1, no_pos + 1))
     return num / den
+
+
+for i in range(1, 5):
+    print(final_score(i, 5))
 
 
 def calculate_new_ratings(ratings, match, game):
