@@ -63,8 +63,8 @@ game_characteristic = {
     "Spirit Island": [4.06, 3, 120, 5],
     "A Feast for Odin": [3.85, 2, 120, ...],
     # Misc
-    "Maximum Point": [5, 1, 120, 1],
-    "Minimum Point": [1, 5, 5, 5],
+    "Maximum Point": [5, 1, 120, ...],
+    "Minimum Point": [1, 5, 5, ...],
 }
 
 matches = [
@@ -91,4 +91,10 @@ matches = [
     [["Trung"], ["Christian"], ["Caesar!", date(2022, 11, 18)]],
     [["Trung"], ["Christian"], ["Caesar!", date(2022, 11, 18)]],
     [["Michael"], ["Asier"], ["Critters at War", date(2022, 11, 22)]],
+    [["Trevin"], ["Trung"], ["Hive", date(2022, 12, 9)]],
+    [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 9)]],
+    [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 9)]],
+    [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 9)]],
+    [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 9)]],
+
 ]
