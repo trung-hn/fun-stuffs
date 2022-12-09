@@ -9,19 +9,19 @@ initial_ratings = {
 }
 """
 Game Characteristic:
-    weight (contribute 35%):
+    weight (contribute 40%):
         1-5, based on bgg, higher => more complex => worth more pts
-    randomness (contribute 25%):
+    randomness (contribute 30%):
         1-5, voted, higher => more random => worth less pts
         Description
             1: no luck e.g. Chess
-            2: very little luck, usually only during setup e.g. Hey that's my fish
+            2: very little luck, usually only during setup and open information e.g. Hey that's my fish
             3: moderate amount of luck, but skill is still the main deciding factor e.g. Caesar
             4: luck affects the game greatly e.g Critters at War
             5: luck fest, might as well roll a dice to decide the winner e.g. Monopoly
-    length (contribute 20%):
+    length (contribute 30%):
         5-minute step, cap at 120 minutes, longer => worth more pts
-    asymmetry (contribute 20%):
+    asymmetry (contribute 0%):
         1-5, votes, higher => players start with more unbalanced state => worth less pts
         This is somewhat related to randomness
         Description:
@@ -32,17 +32,37 @@ Game Characteristic:
             5: players start with obvious imbalance
 """
 game_characteristic = {
-    "Critters at War": [1.69, 3, 15, 3],
+    # Small games
+    "Critters at War": [1.76, 4, 15, 3],
+    "Critters at War EPIC": [1.76, 3, 20, 3],
     "Caesar!": [1.89, 3, 20, 2],
-    "Fish": [1.45, 2, 10, 2],
-    "Jekyll vs Hyde": [1.85, 3, 15, 3],
+    "Fish": [1.45, 2, 15, 2],
+    "Jekyll vs Hyde": [1.85, 3, 20, 3],
     "The Fox in the Forest": [1.57, 3, 25, 3],
+    "Hive": [2.32, 1, 10, 1],
+    "Great Plains": [1.67, 2, 15, 1],
+    "Illusion": [1.07, 5, 15, 1],
+    "Metro X": [1.78, 3, 20, ...],
+    "Love Letter": [1.12, 4, 20, ...],
+    "Silver & Gold": [1.18, 4, 20, ...],
+    # Medium game
+    "Parks": [2.15, 3, 50, ...],
+    "Targi": [2.34, 3, 60, ...],
+    "Res Arcana": [2.62, 3, 45, ...],
+    "The Isle of Cats": [2.35, 3, 60, ...],
+    "Patchwork": [1.61, 2, 45, ...],
+    "Cartographers": [1.89, 4, 45, 1],
+    "Cascadia": [1.84, 3, 50, ...],
     "The Quest for El Dorado": [1.93, 3, 60, 1],
-    "Illusion": [1.07, 4, 15, 1],
     "Barenpark": [1.65, 2, 45, 2],
     "Chess": [3.68, 1, 60, 1],
-    "TFA": [2.92, 4, 60, 1],
-    "Spirit Island": [4.06, 2, 120, 5],
+    "Lost Ruins of Arnak": [2.88, 3, 60, ...],
+    # Big game
+    "Viscounts of the West Kingdom": [3.44, 3, 90, ...],
+    "Terraforming Mars EA": [2.92, 4, 60, 1],
+    "Spirit Island": [4.06, 3, 120, 5],
+    "A Feast for Odin": [3.85, 2, 120, ...],
+    # Misc
     "Maximum Point": [5, 1, 120, 1],
     "Minimum Point": [1, 5, 5, 5],
 }

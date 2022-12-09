@@ -41,7 +41,11 @@ class History:
 
 def z_score(game):
     weight, randomness, length, asymmetry = game_characteristic[game]
-    # return 2 ** weight * 10 + (5 - randomness) * 5 + length / 120 * 30
+    return (
+        sqrt(16 - (5 - weight) ** 2) * 10
+        + (5 - randomness) * 7.5
+        + min(length, 120) / 120 * 30
+    )
     return (
         sqrt(16 - (5 - weight) ** 2) * 10 / 4 * 3.5
         + (5 - randomness) * 6.25
@@ -57,8 +61,10 @@ def game_award(game):
     return z_score(game) / 100 * CHANGE_PER_GAME
 
 
-for game in game_characteristic:
-    print(game, round(z_score(game), 2))
+games = [(game, z_score(game)) for game in game_characteristic]
+games.sort(key=lambda x: -x[1])
+for game, score in games:
+    print(f"{game:<30} {round(score, 2):>6.2f}")
 
 
 def winning_probability(ratings: dict, diff: int = DIFF):
@@ -103,10 +109,6 @@ def final_score(pos, no_pos=2):
     num = ALPHA ** (no_pos - pos) - 1
     den = sum(ALPHA ** (no_pos - i) - 1 for i in range(1, no_pos + 1))
     return num / den
-
-
-for i in range(1, 5):
-    print(final_score(i, 5))
 
 
 def calculate_new_ratings(ratings, match, game):
