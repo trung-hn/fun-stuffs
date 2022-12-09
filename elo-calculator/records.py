@@ -34,14 +34,14 @@ Game Characteristic:
 game_characteristic = {
     # Small games
     "Critters at War": [1.76, 4, 15, 3],
-    "Critters at War EPIC": [1.76, 3, 20, 3],
+    "Critters at War EPIC": [1.76, 3, 25, 3],
     "Caesar!": [1.89, 3, 20, 2],
-    "Fish": [1.45, 2, 15, 2],
+    "Fish": [1.45, 2, 10, 2],
     "Jekyll vs Hyde": [1.85, 3, 20, 3],
     "The Fox in the Forest": [1.57, 3, 25, 3],
     "Hive": [2.32, 1, 10, 1],
     "Great Plains": [1.67, 2, 15, 1],
-    "Illusion": [1.07, 5, 15, 1],
+    "Illusion": [1.07, 4, 15, 1],
     "Metro X": [1.78, 3, 20, ...],
     "Love Letter": [1.12, 4, 20, ...],
     "Silver & Gold": [1.18, 4, 20, ...],
