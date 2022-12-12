@@ -21,7 +21,7 @@ Game Characteristic:
             5: luck fest, might as well roll a dice to decide the winner e.g. Monopoly
     length (contribute 30%):
         5-minute step, cap at 120 minutes, longer => worth more pts
-    asymmetry (contribute 0%):
+    initial asymmetry (contribute 0%):
         1-5, votes, higher => players start with more unbalanced state => worth less pts
         This is somewhat related to randomness
         Description:
@@ -96,5 +96,6 @@ matches = [
     [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 9)]],
     [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 9)]],
     [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 9)]],
+    [["Michael"], ["Trung"], ["Critters at War", date(2022, 12, 12)]],
 
 ]
