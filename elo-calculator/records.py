@@ -39,9 +39,9 @@ game_characteristic = {
     "Fish": [1.45, 2, 10, 2],
     "Jekyll vs Hyde": [1.85, 3, 20, 3],
     "The Fox in the Forest": [1.57, 3, 25, 3],
-    "Hive": [2.32, 1, 10, 1],
+    "Hive": [2.32, 1, 15, 1],
     "Great Plains": [1.67, 2, 15, 1],
-    "Illusion": [1.07, 4, 15, 1],
+    "Illusion": [1.07, 3.5, 10, ...],
     "Metro X": [1.78, 3, 20, ...],
     "Love Letter": [1.12, 4, 20, ...],
     "Silver & Gold": [1.18, 4, 20, ...],
@@ -97,5 +97,7 @@ matches = [
     [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 9)]],
     [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 9)]],
     [["Michael"], ["Trung"], ["Critters at War", date(2022, 12, 12)]],
-
+    [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 13)]],
+    [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 13)]],
+    [["Trevin"], ["Trung"], ["Illusion", date(2022, 12, 13)]],
 ]
