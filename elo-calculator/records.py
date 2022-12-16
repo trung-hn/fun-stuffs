@@ -11,7 +11,7 @@ initial_ratings = {
 Game Characteristic:
     weight (contribute 40%):
         1-5, based on bgg, higher => more complex => worth more pts
-    randomness (contribute 30%):
+    turn-to-turn randomness (contribute 20%):
         1-5, voted, higher => more random => worth less pts
         Description
             1: no luck e.g. Chess
@@ -19,28 +19,27 @@ Game Characteristic:
             3: moderate amount of luck, but skill is still the main deciding factor e.g. Caesar
             4: luck affects the game greatly e.g Critters at War
             5: luck fest, might as well roll a dice to decide the winner e.g. Monopoly
-    length (contribute 30%):
-        5-minute step, cap at 120 minutes, longer => worth more pts
-    initial asymmetry (contribute 0%):
+    initial advantage (contribute 15%):
         1-5, votes, higher => players start with more unbalanced state => worth less pts
-        This is somewhat related to randomness
         Description:
-            1: players start with same state e.g. Chess
-            2: players start with small potential imbalance. Games where player order matter e.g. Hey's that my fish
-            3: players start with moderate potentital imbalance. Card games like Critters at War, Jekyll vs Hyde
-            4: players start with huge potential imbalance e.g. Unmatched
-            5: players start with obvious imbalance
+            1: player(s) start with same state e.g. Chess
+            2: player(s) start with non-obvious advantage, either hard to quantify or hard to materialize e.g. Hey's that my fish, Critters at War
+            3: player(s) start with some advantage e.g. Jekyll vs Hyde, Great Plains
+            4: player(s) start with obvious advantage e.g. Unmatched
+            5: one side wins > 80% of the time. 
+    length (contribute 25%):
+        5-minute step, cap at 120 minutes, longer => worth more pts
 """
 game_characteristic = {
     # Small games
     "Critters at War": [1.76, 4, 15, 3],
-    "Critters at War 2": [1.86, 4, 20, 3], # No BGG weight
+    "Critters at War 2": [1.86, 4, 25, 3], # No BGG weight
     "Critters at War Epic": [1.9, 3.5, 35, 3], # No BGG weight
-    "Critters at War Extreme": [2, 3, 45, 3], # No BGG weight
+    "Critters at War Extreme": [2, 3, 40, 3], # No BGG weight
     "Caesar!": [1.89, 3, 20, 2],
     "Fish": [1.45, 2, 10, 2],
-    "Jekyll vs Hyde": [1.85, 3, 20, 3],
-    "The Fox in the Forest": [1.57, 3, 25, 3],
+    "Jekyll vs Hyde": [1.85, 3.5, 20, 3],
+    "The Fox in the Forest": [1.57, 3.5, 25, 3],
     "Hive": [2.32, 1, 15, 1],
     "Great Plains": [1.67, 2, 15, 1],
     "Illusion": [1.07, 3.5, 10, ...],
@@ -106,4 +105,5 @@ matches = [
     [["Trevin"],["Trung"], ["Michael"], ["Illusion", date(2022, 12, 14)]],
     [["Trung"], ["Asier"], ["Critters at War 2", date(2022, 10, 15)]],
     [["Christian"], ["Trung"], ["Ice Skating", date(2022, 10, 15)]],
+    [["Trung"], ["Asier"], ["The Fox in the Forest", date(2022, 10, 16)]],
 ]
