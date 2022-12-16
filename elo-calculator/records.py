@@ -34,7 +34,9 @@ Game Characteristic:
 game_characteristic = {
     # Small games
     "Critters at War": [1.76, 4, 15, 3],
-    "Critters at War EPIC": [1.76, 3, 25, 3],
+    "Critters at War 2": [1.86, 4, 20, 3], # No BGG weight
+    "Critters at War Epic": [1.9, 3.5, 35, 3], # No BGG weight
+    "Critters at War Extreme": [2, 3, 45, 3], # No BGG weight
     "Caesar!": [1.89, 3, 20, 2],
     "Fish": [1.45, 2, 10, 2],
     "Jekyll vs Hyde": [1.85, 3, 20, 3],
@@ -65,6 +67,7 @@ game_characteristic = {
     # Misc
     "Maximum Point": [5, 1, 120, ...],
     "Minimum Point": [1, 5, 5, ...],
+    "Ice Skating": [2.5, 3, 30, ...]
 }
 
 matches = [
@@ -100,4 +103,7 @@ matches = [
     [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 13)]],
     [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 13)]],
     [["Trevin"], ["Trung"], ["Illusion", date(2022, 12, 13)]],
+    [["Trevin"],["Trung"], ["Michael"], ["Illusion", date(2022, 12, 14)]],
+    [["Trung"], ["Asier"], ["Critters at War 2", date(2022, 10, 15)]],
+    [["Christian"], ["Trung"], ["Ice Skating", date(2022, 10, 15)]],
 ]
