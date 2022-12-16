@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from records import matches, initial_ratings, game_characteristic
 from datetime import date
 from math import sqrt
+import plotly.express as px
+import plotly.graph_objects as go
 
 # Theory: https://towardsdatascience.com/developing-a-generalized-elo-rating-system-for-multiplayer-games-b9b495e87802
 
@@ -25,10 +27,15 @@ class History:
 
     @property
     def ratings(self):
-        return self._ratings
+        return self._ratings | {"Avg": self._average}
+
+    @property
+    def _average(self):
+        return sum(self._ratings.values()) / len(self._ratings)
 
     @ratings.setter
     def ratings(self, ratings):
+        ratings.pop("Avg", None)
         self._ratings = self.reset_ratings(ratings)
         self.update_history()
 
@@ -36,7 +43,7 @@ class History:
         return {k: max(100, v) for k, v in ratings.items()}
 
     def __repr__(self) -> str:
-        return str(self._ratings)
+        return str(self.ratings)
 
 
 def z_score(game):
@@ -106,6 +113,8 @@ def final_score(pos, no_pos=2):
         How many points 1st winner gets compared to 2nd and 3rd.
         Only matters in games with > 2 final positions
     """
+    if no_pos == 1:
+        return 1
     num = ALPHA ** (no_pos - pos) - 1
     den = sum(ALPHA ** (no_pos - i) - 1 for i in range(1, no_pos + 1))
     return num / den
@@ -132,23 +141,30 @@ def calculate_new_ratings(ratings, match, game):
         for name in names:
             player_scores[name] = final_score(pos, len(match)) / len(names)
 
+    new_ratings = dict(ratings)
     for name in participants:
-        ratings[name] += (
+        new_ratings[name] += (
             game_award(game)
             * (len(participants) - 1)
             * (player_scores[name] - winning_chance[name])
         ) + OFFSET_PER_GAME
-    return ratings
-
+    return new_ratings
 
 def plot_hist(history):
+
     _, ax = plt.subplots(figsize=(10, 7))
     total = 0
+    # fig = go.Figure()
     for person, scores in history.history.items():
+        # scores = [round(score) for score in scores]
+        # fig.add_trace(go.Scatter(y=scores,name=person))
         plt.plot(scores, label=person, marker=".")
         x, y = len(scores) - 1, scores[-1] + 0.2
         ax.annotate(round(scores[-1]), (x, y))
         total += scores[-1]
+    # fig.update_traces(hovertemplate=None)
+    # fig.update_layout(transition_duration=500, hovermode="x")
+    # fig.show()
     plt.legend(loc="upper left")
     plt.ylabel("Rating")
     plt.xlabel("Play")
@@ -161,7 +177,7 @@ def plot_hist(history):
 def main():
     history = History(initial_ratings)
     for *match, (game, *_) in matches:
-        history.ratings = calculate_new_ratings(initial_ratings, match, game)
+        history.ratings = calculate_new_ratings(history.ratings, match, game)
     plot_hist(history)
 
 
