@@ -106,4 +106,6 @@ matches = [
     [["Trung"], ["Asier"], ["Critters at War 2", date(2022, 10, 15)]],
     [["Christian"], ["Trung"], ["Ice Skating", date(2022, 10, 15)]],
     [["Trung"], ["Asier"], ["The Fox in the Forest", date(2022, 10, 16)]],
+    [["Christian"], ["Asier"], ["Hive", date(2022, 10, 20)]], # 
+    [["Asier"], ["Christian"], ["Great Plains", date(2022, 10, 20)]],
 ]
