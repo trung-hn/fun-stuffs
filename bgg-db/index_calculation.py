@@ -7,7 +7,8 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
 URL = "https://boardgamegeek.com/collection/user/supermanvungtau?sort=numplays&sortdir=desc&rankobjecttype=subtype&rankobjectid=1&columns=title%7Cthumbnail%7Cstatus%7Crank%7Crating%7Cbggrating%7Cavgrating%7Cnumvoters%7Cplays&geekranks=Board%20Game%20Rank&played=1&objecttype=thing&ff=1&subtype=boardgame"
-# %%
+
+
 def get_plays_using_driver(url):
     plays = []
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
