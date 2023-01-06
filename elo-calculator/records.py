@@ -35,12 +35,12 @@ game_characteristic = {
     "Critters at War": [1.76, 4, 15, 3],
     "Critters at War 2": [1.86, 4, 25, 3], # No BGG weight
     "Critters at War Epic": [1.9, 3.5, 35, 3], # No BGG weight
-    "Critters at War Extreme": [2, 3, 40, 3], # No BGG weight
+    "Critters at War Extreme": [2.2, 3, 25, 3], # No BGG weight
     "Caesar!": [1.89, 3, 20, 2],
     "Fish": [1.45, 2, 10, 2],
     "Jekyll vs Hyde": [1.85, 3.5, 20, 3],
     "The Fox in the Forest": [1.57, 3.5, 25, 3],
-    "Hive": [2.32, 1, 15, 1],
+    "Hive": [2.32, 1, 20, 1],
     "Great Plains": [1.67, 2, 15, 1],
     "Illusion": [1.07, 3.5, 10, ...],
     "Metro X": [1.78, 3, 20, ...],
@@ -106,6 +106,11 @@ matches = [
     [["Trung"], ["Asier"], ["Critters at War 2", date(2022, 10, 15)]],
     [["Christian"], ["Trung"], ["Ice Skating", date(2022, 10, 15)]],
     [["Trung"], ["Asier"], ["The Fox in the Forest", date(2022, 10, 16)]],
-    [["Christian"], ["Asier"], ["Hive", date(2022, 10, 20)]], # 
+    [["Christian"], ["Asier"], ["Hive", date(2022, 10, 20)]],
     [["Asier"], ["Christian"], ["Great Plains", date(2022, 10, 20)]],
+    [["Trung"], ["Christian"], ["Cartographers", date(2022, 10, 23)]],
+    [["Trung"], ["Trevin"], ["Hive", date(2023, 1, 3)]],
+    [["Trevin"], ["Asier"], ["Hive", date(2023, 1, 4)]],
+    [["Trung"], ["Asier"], ["Critters at War Extreme", date(2023, 1,5)]],
+    [["Asier"], ["Trung"], ["The Fox in the Forest", date(2023, 1,5)]],
 ]
