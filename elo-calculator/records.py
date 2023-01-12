@@ -113,4 +113,11 @@ matches = [
     [["Trevin"], ["Asier"], ["Hive", date(2023, 1, 4)]],
     [["Trung"], ["Asier"], ["Critters at War Extreme", date(2023, 1,5)]],
     [["Asier"], ["Trung"], ["The Fox in the Forest", date(2023, 1,5)]],
+    [["Michael"], ["Asier"], ["Hive", date(2023, 1, 9)]],
+    [["Michael"], ["Trung"], ["Critters at War", date(2023, 1, 10)]],
+    [["Michael"], ["Trevin"], ["Hive", date(2023, 1, 11)]], # Michael is first player
+    [["Trevin"], ["Michael"], ["Hive", date(2023, 1, 12)]], # Trevin is first player
+    [["Michael"], ["Trevin"], ["Hive", date(2023, 1, 12)]], # Michael is first player
+    [["Trevin"], ["Michael"], ["Hive", date(2023, 1, 12)]], # Trevin is first player
+    [["Trevin"], ["Michael"], ["Hive", date(2023, 1, 12)]], # Michael is first player
 ]
