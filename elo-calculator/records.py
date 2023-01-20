@@ -33,9 +33,9 @@ Game Characteristic:
 game_characteristic = {
     # Small games
     "Critters at War": [1.76, 4, 15, 3],
-    "Critters at War 2": [1.86, 4, 25, 3], # No BGG weight
-    "Critters at War Epic": [1.9, 3.5, 35, 3], # No BGG weight
-    "Critters at War Extreme": [2.2, 3, 25, 3], # No BGG weight
+    "Critters at War 2": [1.86, 4, 25, 3],  # No BGG weight
+    "Critters at War Epic": [1.9, 3.5, 35, 3],  # No BGG weight
+    "Critters at War Extreme": [2.2, 3, 25, 3],  # No BGG weight
     "Caesar!": [1.89, 3, 20, 2],
     "Fish": [1.45, 2, 10, 2],
     "Jekyll vs Hyde": [1.85, 3.5, 20, 3],
@@ -56,7 +56,7 @@ game_characteristic = {
     "Cascadia": [1.84, 3, 50, ...],
     "The Quest for El Dorado": [1.93, 3, 60, 1],
     "Barenpark": [1.65, 2, 45, 2],
-    "Chess": [3.68, 1, 60, 1],
+    "Chess": [3.68, 1, 30, 1],
     "Lost Ruins of Arnak": [2.88, 3, 60, ...],
     # Big game
     "Viscounts of the West Kingdom": [3.44, 3, 90, ...],
@@ -66,17 +66,17 @@ game_characteristic = {
     # Misc
     "Maximum Point": [5, 1, 120, ...],
     "Minimum Point": [1, 5, 5, ...],
-    "Ice Skating": [2.5, 3, 30, ...]
+    "Ice Skating": [2.5, 3, 30, ...],
 }
 
 matches = [
     [["Asier"], ["Trung"], ["The Fox in the Forest", date(2022, 10, 17)]],
     [["Michael"], ["Asier"], ["Critters at War", date(2022, 10, 17)]],
     [["Trung"], ["Michael"], ["Critters at War", date(2022, 10, 17)]],
-    [["Asier"], ["Trung"], ["The Fox in the Forest", date(2022, 11, 2)]],
     [["Michael"], ["Asier"], ["Critters at War", date(2022, 10, 24)]],
     [["Asier"], ["Michael"], ["Critters at War", date(2022, 11, 1)]],
     [["Trung"], ["Michael"], ["Caesar!", date(2022, 11, 1)]],
+    [["Asier"], ["Trung"], ["The Fox in the Forest", date(2022, 11, 2)]],
     [["Michael"], ["Asier"], ["Critters at War", date(2022, 11, 4)]],
     [["Trung"], ["Asier"], ["Jekyll vs Hyde", date(2022, 11, 4)]],
     [["Asier"], ["Trung"], ["Jekyll vs Hyde", date(2022, 11, 4)]],
@@ -102,22 +102,34 @@ matches = [
     [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 13)]],
     [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 13)]],
     [["Trevin"], ["Trung"], ["Illusion", date(2022, 12, 13)]],
-    [["Trevin"],["Trung"], ["Michael"], ["Illusion", date(2022, 12, 14)]],
-    [["Trung"], ["Asier"], ["Critters at War 2", date(2022, 10, 15)]],
-    [["Christian"], ["Trung"], ["Ice Skating", date(2022, 10, 15)]],
-    [["Trung"], ["Asier"], ["The Fox in the Forest", date(2022, 10, 16)]],
-    [["Christian"], ["Asier"], ["Hive", date(2022, 10, 20)]],
-    [["Asier"], ["Christian"], ["Great Plains", date(2022, 10, 20)]],
-    [["Trung"], ["Christian"], ["Cartographers", date(2022, 10, 23)]],
+    [["Trevin"], ["Trung"], ["Michael"], ["Illusion", date(2022, 12, 14)]],
+    [["Trung"], ["Asier"], ["Critters at War 2", date(2022, 12, 15)]],
+    [["Christian"], ["Trung"], ["Ice Skating", date(2022, 12, 15)]],
+    [["Trung"], ["Asier"], ["The Fox in the Forest", date(2022, 12, 16)]],
+    [["Christian"], ["Asier"], ["Hive", date(2022, 12, 20)]],
+    [["Asier"], ["Christian"], ["Great Plains", date(2022, 12, 20)]],
+    [["Trung"], ["Christian"], ["Cartographers", date(2022, 12, 23)]],
     [["Trung"], ["Trevin"], ["Hive", date(2023, 1, 3)]],
     [["Trevin"], ["Asier"], ["Hive", date(2023, 1, 4)]],
-    [["Trung"], ["Asier"], ["Critters at War Extreme", date(2023, 1,5)]],
-    [["Asier"], ["Trung"], ["The Fox in the Forest", date(2023, 1,5)]],
+    [["Trung"], ["Asier"], ["Critters at War Extreme", date(2023, 1, 5)]],
+    [["Asier"], ["Trung"], ["The Fox in the Forest", date(2023, 1, 5)]],
     [["Michael"], ["Asier"], ["Hive", date(2023, 1, 9)]],
     [["Michael"], ["Trung"], ["Critters at War", date(2023, 1, 10)]],
-    [["Michael"], ["Trevin"], ["Hive", date(2023, 1, 11)]], # Michael is first player
-    [["Trevin"], ["Michael"], ["Hive", date(2023, 1, 12)]], # Trevin is first player
-    [["Michael"], ["Trevin"], ["Hive", date(2023, 1, 12)]], # Michael is first player
-    [["Trevin"], ["Michael"], ["Hive", date(2023, 1, 12)]], # Trevin is first player
-    [["Trevin"], ["Michael"], ["Hive", date(2023, 1, 12)]], # Michael is first player
+    [["Michael"], ["Trevin"], ["Hive", date(2023, 1, 11)]],  # Michael is first player
+    [["Trevin"], ["Michael"], ["Hive", date(2023, 1, 12)]],  # Trevin is first player
+    [["Michael"], ["Trevin"], ["Hive", date(2023, 1, 12)]],  # Michael is first player
+    [["Trevin"], ["Michael"], ["Hive", date(2023, 1, 12)]],  # Trevin is first player
+    [["Trevin"], ["Michael"], ["Hive", date(2023, 1, 12)]],  # Michael is first player
+    [["Michael"], ["Trevin"], ["Hive", date(2023, 1, 13)]],  # Michael is first player
+    [["Trevin"], ["Michael"], ["Hive", date(2023, 1, 13)]],  # Trevin is first player
+    [["Trevin"], ["Michael"], ["Hive", date(2023, 1, 13)]],  # Trevin is first player
+    [["Trung"], ["Asier"], ["Cartographers", date(2023, 1, 19)]],
+    [
+        ["Michael"],
+        ["Christian"],
+        ["Hive", date(2023, 1, 20)],
+    ],  # Michael is first player
+    [["Trung"], ["Trevin"], ["Hive", date(2023, 1, 20)]],  # Trevin is first player
+    [["Michael"], ["Trevin"], ["Chess", date(2023, 1, 20)]],  # Trevin is first player
+    [["Christian"], ["Trung"], ["Asier"], ["Cartographers", date(2023, 1, 20)]],
 ]
