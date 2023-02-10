@@ -22,7 +22,7 @@ class History:
         self._ratings_by_dates = defaultdict(lambda: defaultdict(int))
         self._unique_dates = set()
         self.update_history()
-        self.track_ratings_by_dates(date(2022, 10, 17))
+        self.track_ratings_by_dates(date(2022, 10, 1))
 
     def update_history(self):
         for p, r in self._ratings.items():
@@ -36,20 +36,44 @@ class History:
     @property
     def curr_ratings(self):
         """Track current rating of all players"""
-        return self._ratings
+        return self._ratings | {"Avg": self._average}
 
     @property
     def players(self):
         return list(self._ratings.keys())
 
     @property
+    def ratings_by_play(self):
+        rv = {}
+        for player, ratings in self.history_ratings.items():
+            plays = list(range(len(ratings)))
+            start = end = None
+            for i, (r1, r2) in enumerate(zip(ratings, ratings[1:])):
+                if r1 != r2:
+                    end = i + 1
+                    if start is None:
+                        start = i
+            rv[player] = (ratings[start:end + 1], plays[start:end + 1])
+        return rv
+        
+    @property
     def ratings_by_date(self, use_non_linear_time=True):
         dates = sorted(list(self._unique_dates))
+
         if use_non_linear_time:
             dates = list(map(str, dates))
-        return {
-            p: (list(self._ratings_by_dates[p].values()), dates) for p in self.players
-        }
+
+        rv = {}
+        for player in self.players:
+            ratings = list(self._ratings_by_dates[player].values())
+            start = end = None
+            for i, (r1, r2) in enumerate(zip(ratings, ratings[1:])):
+                if r1 != r2:
+                    end = i + 1
+                    if start is None:
+                        start = i
+            rv[player] = (ratings[start:end + 1], dates[start:end + 1])
+        return rv
 
     @property
     def _average(self):
@@ -57,6 +81,7 @@ class History:
 
     @curr_ratings.setter
     def curr_ratings(self, ratings):
+        ratings.pop("Avg", None)
         self._ratings = ratings
         self.update_history()
 
@@ -65,11 +90,12 @@ class History:
 
 
 def z_score(game):
-    weight, randomness, length, asymmetry = game_characteristic[game]
+    weight, randomness, length, advantage = game_characteristic[game]
     return (
         sqrt(16 - (5 - weight) ** 2) * 10
-        + (5 - randomness) * 7.5
-        + min(length, 120) / 120 * 30
+        + (5 - randomness) * 5
+        + length / 120 * 25
+        + (4 - advantage) * 5
     )
 
 
@@ -168,11 +194,12 @@ def plot_hist(history: History):
     ax0.set_ylabel("Rating")
     ax0.set_xlabel("Play")
     total = 0
-    for person, ratings in history.history_ratings.items():
-        ax0.plot(ratings, label=person, marker=".")
-        x, y = len(ratings) - 1, ratings[-1] + 0.2
+    for person, (ratings, plays) in history.ratings_by_play.items():
+        ax0.plot(plays, ratings, label=person, marker=".")
+        x, y = plays[-1], ratings[-1] + 0.2
         ax0.annotate(round(ratings[-1]), (x, y))
         total += ratings[-1]
+    ax0.legend(loc="best")
 
     ax1.set_ylabel("Rating")
     ax1.set_xlabel("Date")
@@ -182,8 +209,7 @@ def plot_hist(history: History):
         x, y = dates[-1], ratings[-1] + 0.2
         ax1.annotate(round(ratings[-1]), (x, y))
 
-    ax0.legend(loc='best')
-    ax1.legend(loc='best')
+    ax1.legend(loc="best")
     plt.suptitle(
         f"Ratings as of {date.today()}. \nExtra Elo Points to the pool: {total % 1500} (Offset/player = {OFFSET_PER_GAME})"
     )
