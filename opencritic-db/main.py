@@ -11,6 +11,7 @@ headers = {
     "X-RapidAPI-Key": "9fb706059bmsh1fba0cc07e843bfp126b2bjsn2719442bcbb7",
     "X-RapidAPI-Host": "opencritic-api.p.rapidapi.com",
 }
+to_ignore_files = ["ignored.txt", "tracked.txt", "played.txt"]
 
 
 def request_and_archive_data(year=2022):
@@ -51,8 +52,9 @@ def main():
         data = json.load(f)
 
     ignored = set()
-    with open("ignored.txt", "r") as f:
-        ignored |= set(f.read().splitlines())
+    for file in to_ignore_files:
+        with open(file, "r") as f:
+            ignored |= set(f.read().splitlines())
 
     with open("data.json", "r") as f:
         data = json.load(f)
