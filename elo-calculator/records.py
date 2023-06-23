@@ -1,229 +1,178 @@
-from collections import defaultdict
-from typing import List
-import matplotlib.pyplot as plt
-from records import matches, initial_ratings, game_characteristic
 from datetime import date
-from math import sqrt
-import plotly.express as px
-import plotly.graph_objects as go
 
-# Theory: https://towardsdatascience.com/developing-a-generalized-elo-rating-system-for-multiplayer-games-b9b495e87802
+initial_ratings = {
+    "Michael": 1500,
+    "Christian": 1500,
+    "Asier": 1500,
+    "Trung": 1500,
+    "Trevin": 1500,
+}
+"""
+Game Characteristic:
+    weight (contribute 40%):
+        1-5, based on bgg, higher => more complex => worth more pts
+    turn-to-turn randomness (contribute 20%):
+        1-5, voted, higher => more random => worth less pts
+        Description
+            1: no luck e.g. Chess
+            2: very little luck, usually only during setup and open information e.g. Hey that's my fish
+            3: moderate amount of luck, but skill is still the main deciding factor e.g. Caesar
+            4: luck affects the game greatly e.g Critters at War
+            5: luck fest, might as well roll a dice to decide the winner e.g. Monopoly
+    length (contribute 25%):
+        5-minute step, cap at 120 minutes, longer => worth more pts
+    initial advantage (contribute 15%): or imbalance
+        1-4, votes, higher => players start with more unbalanced state => worth less pts
+        Description:
+            1: player(s) start with same state e.g. Chess
+            2: player(s) start with non-obvious advantage, either hard to quantify or hard to materialize
+            3: player(s) start with some advantage e.g. Jekyll vs Hyde, Great Plains
+            4: player(s) start with obvious advantage e.g. Santorini
+"""
+game_characteristic = {
+    # Small games
+    "Critters at War": [1.76, 4, 15, 2],
+    "Critters at War 2": [1.86, 4, 25, 2],  # No BGG weight
+    "Critters at War Epic": [1.9, 3.5, 35, 2],  # No BGG weight
+    "Critters at War Extreme": [2.2, 3, 25, 2],  # No BGG weight
+    "Caesar!": [1.89, 3, 20, 1],
+    "Fish": [1.45, 2, 10, 2],
+    "Jekyll vs Hyde": [1.85, 3.5, 20, 3],
+    "The Fox in the Forest": [1.57, 3.5, 25, 2],
+    "Hive": [2.32, 1, 20, 1],
+    "Great Plains": [1.67, 2, 15, 2],
+    "Illusion": [1.07, 3.5, 10, 3],
+    "Metro X": [1.78, 3, 20, 1],
+    "Love Letter": [1.12, 4, 20, 2],
+    "Silver & Gold": [1.18, 3.5, 20, 2],
+    "Santorini": [1.73, 1, 15, 3],
+    "Santorini 3p": [1.73, 1, 15, 4],
+    "Arboretum": [2.15, 4.5, 60, 3],
+    "Poker": [2.42, 5, 20, 4.5],
+    # Medium game
+    "Blue Lagoon": [2.02, 2, 50, 1],
+    "Parks": [2.15, 3, 50, 2],
+    "Targi": [2.34, 3, 60, 2],
+    "Res Arcana": [2.62, 3, 45, 2],
+    "The Isle of Cats": [2.35, 3, 60, 2],
+    "Patchwork": [1.61, 1, 45, 2],
+    "Cartographers": [1.89, 4, 45, 1],
+    "Cascadia": [1.84, 3.5, 50, 1],
+    "The Quest for El Dorado": [1.93, 3.5, 60, 3],
+    "Barenpark": [1.65, 2, 45, 1],
+    "Chess": [3.68, 1, 30, 1],
+    "Lost Ruins of Arnak": [2.88, 3, 60, 2],
+    # Big game
+    "Viscounts of the West Kingdom": [3.44, 3, 90, 2],
+    "Terraforming Mars EA": [2.92, 4, 60, 2],
+    "Spirit Island": [4.06, 3, 120, 5],
+    "A Feast for Odin": [3.85, 2, 120, 2],
+    # Misc
+    "Maximum Point": [5, 1, 120, 1],
+    "Minimum Point": [1, 5, 5, 4],
+    "Competition": [5, 1, 120, 1],
+    "Ice Skating": [2.5, 3, 30, 2],
+}
 
-DIFF = 800
-CHANGE_PER_GAME = 60  # how much does winner get awarded
-ALPHA = 1.1  # how much does 1st pos win compared to 2nd and 3rd (only matter in 2+ player games)
-OFFSET_PER_GAME = 2
-
-
-class History:
-    def __init__(self, init_ratings) -> None:
-        self._ratings = init_ratings
-        self.history_ratings = defaultdict(list)
-        self._ratings_by_dates = defaultdict(lambda: defaultdict(int))
-        self._unique_dates = set()
-        self.update_history()
-        self.track_ratings_by_dates(date(2022, 10, 1))
-
-    def update_history(self):
-        for p, r in self._ratings.items():
-            self.history_ratings[p].append(r)
-
-    def track_ratings_by_dates(self, date):
-        for p, r in self._ratings.items():
-            self._ratings_by_dates[p][date] = r
-        self._unique_dates.add(date)
-
-    @property
-    def curr_ratings(self):
-        """Track current rating of all players"""
-        return self._ratings | {"Avg": self._average}
-
-    @property
-    def players(self):
-        return list(self._ratings.keys())
-
-    @property
-    def ratings_by_play(self):
-        rv = {}
-        for player, ratings in self.history_ratings.items():
-            plays = list(range(len(ratings)))
-            start = end = None
-            for i, (r1, r2) in enumerate(zip(ratings, ratings[1:])):
-                if r1 != r2:
-                    end = i + 1
-                    if start is None:
-                        start = i
-            rv[player] = (ratings[start:end + 1], plays[start:end + 1])
-        return rv
-        
-    @property
-    def ratings_by_date(self, use_non_linear_time=True):
-        dates = sorted(list(self._unique_dates))
-
-        if use_non_linear_time:
-            dates = list(map(str, dates))
-
-        rv = {}
-        for player in self.players:
-            ratings = list(self._ratings_by_dates[player].values())
-            start = end = None
-            for i, (r1, r2) in enumerate(zip(ratings, ratings[1:])):
-                if r1 != r2:
-                    end = i + 1
-                    if start is None:
-                        start = i
-            rv[player] = (ratings[start:end + 1], dates[start:end + 1])
-        return rv
-
-    @property
-    def _average(self):
-        return sum(self._ratings.values()) / len(self._ratings)
-
-    @curr_ratings.setter
-    def curr_ratings(self, ratings):
-        ratings.pop("Avg", None)
-        self._ratings = ratings
-        self.update_history()
-
-    def __repr__(self) -> str:
-        return str(self.curr_ratings)
-
-
-def z_score(game):
-    weight, randomness, length, advantage = game_characteristic[game]
-    return (
-        sqrt(16 - (5 - weight) ** 2) * 10
-        + (5 - randomness) * 5
-        + length / 120 * 25
-        + (4 - advantage) * 5
-    )
-
-
-def game_award(game):
-    """
-    Return the adjusted reward of a game based on its characteristic
-    """
-    return z_score(game) / 100 * CHANGE_PER_GAME
-
-
-games = [(game, z_score(game)) for game in game_characteristic]
-games.sort(key=lambda x: -x[1])
-for game, score in games:
-    print(f"{game:<30} {round(score, 2):>6.2f}")
-
-
-def winning_probability(ratings: dict, diff: int = DIFF):
-    """
-    Calculate probablity of winning for each player.
-
-    Parameters
-    ----------
-    ratings:
-        Rating of each player
-    diff:
-        Player A has 90% chance of winning if R_A = R_B + DIFF.
-        In other words, how easy it is for weaker player to breach the gap
-    """
-    rv = {}
-    N = len(ratings)
-    for player1, rating1 in ratings.items():
-        num = 0
-        for player2, rating2 in ratings.items():
-            if player1 == player2:
-                continue
-            num += 1 / (1 + 10 ** ((rating2 - rating1) / diff))
-        den = N * (N - 1) / 2
-        rv[player1] = num / den
-    return rv
-
-
-def final_score(pos, no_pos=2):
-    """
-    Calculate final score based on winning position.
-
-    Parameters
-    ----------
-    pos:
-        Final position, 1 is winner, 2 is 2nd winner, ... N is loser
-    no_players:
-        Number of positions in the game
-    alpha:
-        How many points 1st winner gets compared to 2nd and 3rd.
-        Only matters in games with > 2 final positions
-    """
-    if no_pos == 1:
-        return 1
-    num = ALPHA ** (no_pos - pos) - 1
-    den = sum(ALPHA ** (no_pos - i) - 1 for i in range(1, no_pos + 1))
-    return num / den
-
-
-def calculate_new_ratings(ratings, match, game):
-    """
-    Calculate new ratings for each player
-
-    Parameters
-    ----------
-    all_ratings:
-        Rating of all players
-    match:
-        Match result.
-        [[A], [B, C], [D]] means A ranks 1st, B & C both rank 2nd, D ranks last
-    """
-    participants = [name for names in match for name in names]
-    player_ratings = {name: ratings[name] for name in participants}
-    winning_chance = winning_probability(player_ratings)
-
-    player_scores = {}
-    for pos, names in enumerate(match, 1):
-        for name in names:
-            player_scores[name] = final_score(pos, len(match)) / len(names)
-
-    new_ratings = dict(ratings)
-    for name in participants:
-        new_ratings[name] += (
-            game_award(game)
-            * (len(participants) - 1)
-            * (player_scores[name] - winning_chance[name])
-        ) + OFFSET_PER_GAME
-    return new_ratings
-
-
-def plot_hist(history: History):
-    _, (ax0, ax1) = plt.subplots(2, 1, figsize=(10, 12))
-    ax0.set_ylabel("Rating")
-    ax0.set_xlabel("Play")
-    total = 0
-    for person, (ratings, plays) in history.ratings_by_play.items():
-        ax0.plot(plays, ratings, label=person, marker=".")
-        x, y = plays[-1], ratings[-1] + 0.2
-        ax0.annotate(round(ratings[-1]), (x, y))
-        total += ratings[-1]
-    ax0.legend(loc="best")
-
-    ax1.set_ylabel("Rating")
-    ax1.set_xlabel("Date")
-    ax1.tick_params(labelrotation=45)
-    for person, (ratings, dates) in history.ratings_by_date.items():
-        ax1.plot(dates, ratings, label=person, marker=".")
-        x, y = dates[-1], ratings[-1] + 0.2
-        ax1.annotate(round(ratings[-1]), (x, y))
-
-    ax1.legend(loc="best")
-    plt.suptitle(
-        f"Ratings as of {date.today()}. \nExtra Elo Points to the pool: {total % 1500} (Offset/player = {OFFSET_PER_GAME})"
-    )
-    plt.show()
-
-
-def main():
-    history = History(initial_ratings)
-    for *match, (game, date) in matches:
-        history.curr_ratings = calculate_new_ratings(history.curr_ratings, match, game)
-        history.track_ratings_by_dates(date)
-
-    plot_hist(history)
-
-
-if __name__ == "__main__":
-    main()
+matches = [
+    [["Asier"], ["Trung"], ["The Fox in the Forest", date(2022, 10, 17)]],
+    [["Michael"], ["Asier"], ["Critters at War", date(2022, 10, 17)]],
+    [["Trung"], ["Michael"], ["Critters at War", date(2022, 10, 17)]],
+    [["Michael"], ["Asier"], ["Critters at War", date(2022, 10, 24)]],
+    [["Asier"], ["Michael"], ["Critters at War", date(2022, 11, 1)]],
+    [["Trung"], ["Michael"], ["Caesar!", date(2022, 11, 1)]],
+    [["Asier"], ["Trung"], ["The Fox in the Forest", date(2022, 11, 2)]],
+    [["Michael"], ["Asier"], ["Critters at War", date(2022, 11, 4)]],
+    [["Trung"], ["Asier"], ["Jekyll vs Hyde", date(2022, 11, 4)]],
+    [["Asier"], ["Trung"], ["Jekyll vs Hyde", date(2022, 11, 4)]],
+    [["Trung"], ["Michael"], ["Caesar!", date(2022, 11, 7)]],
+    [["Trung"], ["Michael"], ["Critters at War", date(2022, 11, 7)]],
+    [["Trung"], ["Michael"], ["Caesar!", date(2022, 11, 8)]],
+    [["Asier"], ["Michael"], ["Critters at War", date(2022, 11, 11)]],
+    [["Asier"], ["Michael"], ["Caesar!", date(2022, 11, 11)]],
+    [["Asier"], ["Michael"], ["Caesar!", date(2022, 11, 11)]],
+    [["Michael"], ["Asier"], ["Critters at War", date(2022, 11, 16)]],
+    [["Trung"], ["Michael"], ["Caesar!", date(2022, 11, 16)]],
+    [["Trung"], ["Christian"], ["Caesar!", date(2022, 11, 16)]],
+    [["Michael"], ["Trung"], ["Critters at War", date(2022, 11, 16)]],
+    [["Trung"], ["Christian"], ["Caesar!", date(2022, 11, 18)]],
+    [["Trung"], ["Christian"], ["Caesar!", date(2022, 11, 18)]],
+    [["Michael"], ["Asier"], ["Critters at War", date(2022, 11, 22)]],
+    [["Trevin"], ["Trung"], ["Hive", date(2022, 12, 9)]],
+    [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 9)]],
+    [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 9)]],
+    [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 9)]],
+    [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 9)]],
+    [["Michael"], ["Trung"], ["Critters at War", date(2022, 12, 12)]],
+    [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 13)]],
+    [["Trung"], ["Trevin"], ["Hive", date(2022, 12, 13)]],
+    [["Trevin"], ["Trung"], ["Illusion", date(2022, 12, 13)]],
+    [["Trevin"], ["Trung"], ["Michael"], ["Illusion", date(2022, 12, 14)]],
+    [["Trung"], ["Asier"], ["Critters at War 2", date(2022, 12, 15)]],
+    [["Christian"], ["Trung"], ["Ice Skating", date(2022, 12, 15)]],
+    [["Trung"], ["Asier"], ["The Fox in the Forest", date(2022, 12, 16)]],
+    [["Christian"], ["Asier"], ["Hive", date(2022, 12, 20)]],
+    [["Asier"], ["Christian"], ["Great Plains", date(2022, 12, 20)]],
+    [["Trung"], ["Christian"], ["Cartographers", date(2022, 12, 23)]],
+    [["Trung"], ["Trevin"], ["Hive", date(2023, 1, 3)]],
+    [["Trevin"], ["Asier"], ["Hive", date(2023, 1, 4)]],
+    [["Trung"], ["Asier"], ["Critters at War Extreme", date(2023, 1, 5)]],
+    [["Asier"], ["Trung"], ["The Fox in the Forest", date(2023, 1, 5)]],
+    [["Michael"], ["Asier"], ["Hive", date(2023, 1, 9)]],
+    [["Michael"], ["Trung"], ["Critters at War", date(2023, 1, 10)]],
+    [["Michael"], ["Trevin"], ["Hive", date(2023, 1, 11)]],  # Michael is first player
+    [["Trevin"], ["Michael"], ["Hive", date(2023, 1, 12)]],  # Trevin is first player
+    [["Michael"], ["Trevin"], ["Hive", date(2023, 1, 12)]],  # Michael is first player
+    [["Trevin"], ["Michael"], ["Hive", date(2023, 1, 12)]],  # Trevin is first player
+    [["Trevin"], ["Michael"], ["Hive", date(2023, 1, 12)]],  # Michael is first player
+    [["Michael"], ["Trevin"], ["Hive", date(2023, 1, 13)]],  # Michael is first player
+    [["Trevin"], ["Michael"], ["Hive", date(2023, 1, 13)]],  # Trevin is first player
+    [["Trevin"], ["Michael"], ["Hive", date(2023, 1, 13)]],  # Trevin is first player
+    [["Trung"], ["Asier"], ["Cartographers", date(2023, 1, 19)]],
+    [
+        ["Michael"],
+        ["Christian"],
+        ["Hive", date(2023, 1, 20)],
+    ],  # Michael is first player
+    [["Trung"], ["Trevin"], ["Hive", date(2023, 1, 20)]],  # Trevin is first player
+    [["Michael"], ["Trevin"], ["Chess", date(2023, 1, 20)]],
+    [["Christian"], ["Trung"], ["Asier"], ["Cartographers", date(2023, 1, 20)]],
+    [["Christian"], ["Michael"], ["Critters at War", date(2023, 1, 25)]],
+    [["Trung"], ["Christian"], ["Asier"], ["Cartographers", date(2023, 1, 26)]],
+    [["Asier"], ["Trung"], ["Critters at War 2", date(2023, 1, 30)]],
+    [["Asier"], ["Michael"], ["Cascadia", date(2023, 2, 1)]],
+    [["Michael"], ["Christian"], ["Asier"], ["Trevin"], ["Cascadia", date(2023, 2, 3)]],
+    [["Trevin"], ["Asier", "Trung"], ["Santorini 3p", date(2023, 2, 8)]],
+    [
+        ["Michael"],
+        ["Trung"],
+        ["Asier"],
+        ["Trevin"],
+        ["The Quest for El Dorado", date(2023, 2, 10)],
+    ],
+    [["Trung"], ["Asier"], ["Caesar!", date(2023, 2, 15)]],
+    [["Asier"], ["Trung"], ["Caesar!", date(2023, 2, 15)]],
+    [["Trung"], ["Asier"], ["Fish", date(2023, 2, 17)]],
+    [["Trung"], ["Asier"], ["Great Plains", date(2023, 2, 17)]],
+    [["Asier"], ["Trung"], ["Caesar!", date(2023, 2, 23)]],
+    [["Asier"], ["Trung"], ["Caesar!", date(2023, 2, 24)]],
+    [["Trevin"], ["Asier"], ["Caesar!", date(2023, 3, 2)]],
+    [["Trevin"], ["Asier"], ["Caesar!", date(2023, 3, 2)]],
+    [["Trung"], ["Trevin"], ["Caesar!", date(2023, 3, 2)]],
+    [["Trung"], ["Trevin"], ["Caesar!", date(2023, 3, 2)]],
+    [["Trevin"], ["Asier"], ["Caesar!", date(2023, 3, 3)]],
+    [["Trevin"], ["Asier"], ["Caesar!", date(2023, 3, 3)]],
+    [["Trung"], ["Trevin"], ["Caesar!", date(2023, 3, 3)]],
+    [["Trung"], ["Asier"], ["Caesar!", date(2023, 3, 3)]],
+    [["Asier"], ["Trung"], ["The Fox in the Forest", date(2023, 3, 6)]],
+    [["Trung"], ["Asier"], ["Trevin"], ["Arboretum", date(2023, 3, 22)]],
+    [["Michael"], ["Asier", "Trung", "Trevin"], ["Illusion", date(2023, 3, 31)]],
+    [["Trung"], ["Asier"], ["Santorini", date(2023, 4, 12)]],
+    [["Asier"], ["Trung"], ["Santorini", date(2023, 4, 12)]],
+    [["Asier"], ["Trung"], ["Santorini", date(2023, 4, 12)]],
+    [["Trung"], ["Asier"], ["Santorini", date(2023, 4, 12)]],
+    [["Asier"], ["Trung", "Trevin", "Michael"], ["Poker", date(2023, 5, 10)]],
+    [["Trung"], ["Asier", "Trevin", "Michael"], ["Poker", date(2023, 5, 11)]],
+    [["Michael"], ["Trung", "Trevin"], ["Love Letter", date(2023, 5, 11)]],
+    [["Michael"], ["Trung", "Trevin", "Asier"], ["Poker", date(2023, 5, 16)]],
+]
