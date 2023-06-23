@@ -48,6 +48,7 @@ game_characteristic = {
     "Santorini": [1.73, 1, 15, 3],
     "Santorini 3p": [1.73, 1, 15, 4],
     "Arboretum": [2.15, 4.5, 60, 3],
+    "Poker": [2.42, 5, 20, 4.5],
     # Medium game
     "Blue Lagoon": [2.02, 2, 50, 1],
     "Parks": [2.15, 3, 50, 2],
@@ -166,4 +167,12 @@ matches = [
     [["Asier"], ["Trung"], ["The Fox in the Forest", date(2023, 3, 6)]],
     [["Trung"], ["Asier"], ["Trevin"], ["Arboretum", date(2023, 3, 22)]],
     [["Michael"], ["Asier", "Trung", "Trevin"], ["Illusion", date(2023, 3, 31)]],
+    [["Trung"], ["Asier"], ["Santorini", date(2023, 4, 12)]],
+    [["Asier"], ["Trung"], ["Santorini", date(2023, 4, 12)]],
+    [["Asier"], ["Trung"], ["Santorini", date(2023, 4, 12)]],
+    [["Trung"], ["Asier"], ["Santorini", date(2023, 4, 12)]],
+    [["Asier"], ["Trung", "Trevin", "Michael"], ["Poker", date(2023, 5, 10)]],
+    [["Trung"], ["Asier", "Trevin", "Michael"], ["Poker", date(2023, 5, 11)]],
+    [["Michael"], ["Trung", "Trevin"], ["Love Letter", date(2023, 5, 11)]],
+    [["Michael"], ["Trung", "Trevin", "Asier"], ["Poker", date(2023, 5, 16)]],
 ]
