@@ -1,5 +1,6 @@
 428: Shibuya Scramble
 8-Bit Adventures 2
+A Plague Tale: Requiem
 A Space for the Unbound
 AI: THE SOMNIUM FILES - nirvanA Initiative
 Amid Evil
@@ -22,6 +23,7 @@ Bug Fables: The Everlasting Sapling
 Bustafellows
 Candle
 Card Shark
+Cassette Beasts
 Cave Story+
 Celeste
 Chained Echoes
@@ -45,11 +47,13 @@ Dark Souls II
 Dark Souls II: Scholar of the First Sin
 Dark Souls III
 Dark Souls Remastered
+Dave the Diver
 Dawn of the Monsters
 Day of the Tentacle Remastered
 Dead Cells: Fatal Falls
 Dead Cells: Return to Castlevania
 Dead Cells: The Queen & the Sea
+Dead Space (2023)
 Dead Space (Remake)
 Death Stranding
 Death Stranding Director's Cut
@@ -60,6 +64,7 @@ Deltarune: Chapter 1 & 2
 Demon Turf: Neon Splash
 Desperados III
 Devil May Cry 5
+Diablo IV
 Disco Elysium
 Disco Elysium: The Final Cut
 Dishonored 2
@@ -70,6 +75,7 @@ DOOM Eternal
 Dragon Age: Inquisition
 Dragon Ball FighterZ
 Dragon Quest Builders 2
+Dragon Quest XI S: Echoes of an Elusive Age - Definitive Edition
 DRAGON QUEST XI S: Echoes of an Elusive Age - Definitive Edition
 Dragon Quest XI: Echoes of an Elusive Age
 Dreamscaper
@@ -107,14 +113,17 @@ Forza Horizon 5: Hot Wheels
 Freshly Frosted
 Frog Detective 3: Corruption at Cowboy County
 Frostpunk
+Fuga: Melodies of Steel 2
 Gears 5
 Gears of War 4
 Geometry Wars 3: Dimensions
 Ghost of Tsushima Director's Cut
+Ghost Trick: Phantom Detective
 Glitch Busters: Stuck On You
 Gorogoa
 Grand Theft Auto V
 Grapple Dog
+Gravity Circuit
 GRIS
 Guacamelee! 2
 Guacamelee! Super Turbo Championship Edition
@@ -137,6 +146,7 @@ Huntdown
 HYPER DEMON
 Hyper Light Drifter
 I Was a Teenage Exocolonist
+Ib
 Iconoclasts
 If Found...
 Ikonei Island: An Earthlock Adventure
@@ -146,6 +156,7 @@ INSIDE
 It Takes Two
 Jack Move
 Jimmy and the Pulsating Mass
+Journey
 Just Shapes & Beats
 Kaiju Wars
 Katana Zero
@@ -230,6 +241,7 @@ Pony Island
 Protodroid DeLTA
 Psychonauts
 Psychonauts 2
+Quake
 Quake (2021 Remaster)
 Ragnarock
 Rakuen
@@ -239,6 +251,7 @@ Red Dead Redemption 2
 Red Matter 2
 Rescue Party: Live!
 Resident Evil 4 (2023 Remake)
+Resident Evil 4 (2023)
 Return to Monkey Island
 Returnal
 Rez Infinite
@@ -258,6 +271,7 @@ Silicon Dreams
 SKALD: Against the Black Priory
 Sky: Children of the Light
 Slay The Spire
+Slay The Spire
 Slayaway Camp
 Sniper Elite 5
 Sonic Mania
@@ -267,6 +281,7 @@ South Park: The Stick of Truth
 SpiderHeck
 Spiritfarer
 Star Stuff
+Star Wars Jedi: Survivor
 Star Wars: Knights of the Old Republic
 Stardew Valley
 Steins;Gate (Steam Edition)
@@ -274,9 +289,11 @@ STEINS;GATE ELITE
 Stephen's Sausage Roll
 Strange Horticulture
 Stray
+Street Fighter 6
 Street Fighter V: Arcade Edition
 Streets of Rage 4
 Streets Of Rage 4 - Mr. X Nightmare
+Streets of Rage 4: Mr. X Nightmare
 Subnautica
 Sumire
 Sunless Skies
@@ -343,6 +360,7 @@ Valkyria Chronicles 4
 Velocity 2X
 Vernal Edge
 Voice of Cards: The Forsaken Maiden
+Walkabout Mini Golf
 Wandersong
 Wargroove: Double Trouble
 Warhammer 40,000: Chaos Gate - Daemonhunters

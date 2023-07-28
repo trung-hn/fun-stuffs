@@ -6,6 +6,7 @@ Call of Duty: Black Ops 4
 Company of Heroes 2: The British Forces
 Crusader Kings III
 Crusader Kings III: The Royal Court
+Danmaku Unlimited 3
 Destiny 2
 Destiny 2: The Witch Queen
 Diablo III: Reaper of Souls
@@ -23,6 +24,7 @@ F1 2017
 F1 2019
 F1 2020
 F1 2021
+F1 23
 Field of Glory II
 FIFA 14
 FIFA 18
@@ -58,11 +60,11 @@ Hearthstone: The Grand Tournament
 Hearthstone: The League of Explorers
 Hearthstone: Voyage to the Sunken City
 Heroes of the Storm
+Humanity
 Killer Instinct: Season 3
 League of Legends
 Legends of Runeterra
 Lost Ark
-Marvel Snap
 Microsoft Flight Simulator
 Mortal Kombat 11 Ultimate
 Mortal Kombat X
