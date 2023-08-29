@@ -1,3 +1,4 @@
+30XX
 428: Shibuya Scramble
 8-Bit Adventures 2
 A Plague Tale: Requiem
@@ -5,6 +6,7 @@ A Space for the Unbound
 AI: THE SOMNIUM FILES - nirvanA Initiative
 Amid Evil
 Andro Dunos 2
+Armored Core VI: Fires of Rubicon
 Ashes of the Singularity: Escalation
 Assassin's Creed Valhalla - Discovery Tour: Viking Age
 Assassin's Creed Valhalla: Dawn of Ragnarok
@@ -15,6 +17,7 @@ Batman: The Enemy Within - Episode 5
 BattleBlock Theater
 Bayonetta
 Before Your Eyes
+Betrayal At Club Low
 BioShock: The Collection
 Black Mesa
 Borderlands 2
@@ -170,7 +173,9 @@ Kynseed
 Later Alligator
 Legend of Grimrock II
 Lego Star Wars: The Skywalker Saga
+Let's! Revolution!
 Levelhead
+Lil Gator Game
 Lost in Play
 Magic: The Gathering Arena
 Marvel's Spider-Man: Remastered
@@ -226,6 +231,7 @@ Overboard!
 Owlboy
 Paradigm
 Path of the Midnight Sun
+Patrick's Parabox
 Pentiment
 Persona 4 Arena Ultimax
 Persona 4 Golden
@@ -260,6 +266,8 @@ Rogue Legacy
 Salt and Sacrifice
 Sayonara Wild Hearts
 Scarlet Hollow
+Sea of Stars
+Shadow Gambit: The Cursed Crew
 Shadowrun: Dragonfall - Director's Cut
 Shin Megami Tensei V
 Shovel Knight
@@ -284,7 +292,9 @@ Star Stuff
 Star Wars Jedi: Survivor
 Star Wars: Knights of the Old Republic
 Stardew Valley
+Steins;Gate
 Steins;Gate (Steam Edition)
+Steins;Gate Elite
 STEINS;GATE ELITE
 Stephen's Sausage Roll
 Strange Horticulture
@@ -313,6 +323,7 @@ The Binding of Isaac: Afterbirth
 The Binding of Isaac: Rebirth
 The Blackwell Epiphany+
 The Case of the Golden Idol
+The Cosmic Wheel Sisterhood
 The Excavation Of Hob's Barrow
 The Forgotten City
 The Great Ace Attorney Chronicles
@@ -344,6 +355,7 @@ TowerFall Ascension
 Transistor
 TRI: Of Friendship and Madness
 Tunic
+Turbo Overkill
 Two Point Campus
 Two Point Campus: Space Academy
 Two Point Hospital
@@ -359,12 +371,14 @@ Valkyria Chronicles
 Valkyria Chronicles 4
 Velocity 2X
 Vernal Edge
+Videoverse
 Voice of Cards: The Forsaken Maiden
 Walkabout Mini Golf
 Wandersong
 Wargroove: Double Trouble
 Warhammer 40,000: Chaos Gate - Daemonhunters
 Wasteland 3
+We Love Katamari REROLL+ Royal Reverie
 Weird West
 West of Loathing
 What Lies In The Multiverse
@@ -378,4 +392,4 @@ Yakuza: Like a Dragon
 Youropa
 Ys VIII: Lacrimosa of DANA
 ZEN Pinball 2: The Walking Dead
-Zero Escape: The Nonary Games
+Zero Escape: The Nonary GamesBaldur's Gate 3
