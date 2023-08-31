@@ -68,8 +68,9 @@ def main():
             game["topCriticScore"],
             game["id"],
         )
-        if game_info.tier in ("Mighty",):
-            # if game_info.tier in ("Mighty", "Strong"):
+        # if game_info.tier in ("Mighty",):
+        # if game_info.tier in ("Mighty", "Strong"):
+        if game_info.top_critic_score > 82:
             if game_info.name in ignored:
                 continue
             left_overs.append(game_info.name)
