@@ -24,6 +24,7 @@ Espgaluda II
 Euro Truck Simulator 2 - Beyond the Baltic Sea
 Euro Truck Simulator 2 - Road to the Black Sea
 F1 2017
+F1 2018
 F1 2019
 F1 2020
 F1 2021
@@ -65,15 +66,18 @@ Hearthstone: Murder at Castle Nathria
 Hearthstone: The Grand Tournament
 Hearthstone: The League of Explorers
 Hearthstone: Voyage to the Sunken City
+Hearts of Iron IV
 Heroes of the Storm
 Humanity
 Killer Instinct: Season 3
 League of Legends
 Legends of Runeterra
 Lost Ark
+Marvel Heroes 2015
 Microsoft Flight Simulator
 Mortal Kombat 11 Ultimate
 Mortal Kombat X
+Muv-Luv Alternative
 NBA 2K16
 NBA 2K17
 Olympia Soiree
@@ -91,6 +95,7 @@ Resident Evil Village
 Retro Bowl
 Rivals of Aether
 Rocket League
+Rocksmith 2014 Edition
 Sifu
 Silt
 Spelunky
@@ -109,6 +114,7 @@ Tales From The Borderlands: Episode One - Zer0 Sum
 The Elder Scrolls Online: Murkmire
 The King of Fighters 2002 Unlimited Match
 The King of Fighters XV
+The Making of Karateka
 The Sims 4: Island Living
 The Walking Dead: Season Two Episode 2 - A House Divided
 The Walking Dead: The Telltale Definitive Series
@@ -116,6 +122,7 @@ The Wolf Among Us: Episode 3 - A Crooked Mile
 The Wolf Among Us: Episode 5 - Cry Wolf
 Titanfall
 Titanfall 2
+Tom Clancy's The Division 2
 Tony Hawk's Pro Skater 1 + 2
 Total War: THREE KINGDOMS
 Total War: Warhammer
@@ -127,6 +134,7 @@ Trine 2: Complete Story
 Trolley Problem, Inc.
 Unity of Command 2
 ValiDate: Struggling Singles in your Area
+Volgarr the Viking
 World of Warcraft: Legion
 World of Warcraft: Warlords of Draenor
 WWE 2K22

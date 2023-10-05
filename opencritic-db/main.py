@@ -22,7 +22,7 @@ def request_and_archive_data(year=2022):
     skip = 0
     while 1:
         params = {
-            "platforms": "pc",
+            # "platforms": "pc",
             "sort": "score",
             "order": "desc",
             "skip": skip,
@@ -70,7 +70,7 @@ def main():
         )
         # if game_info.tier in ("Mighty",):
         # if game_info.tier in ("Mighty", "Strong"):
-        if game_info.top_critic_score > 82:
+        if game_info.top_critic_score > 83:
             if game_info.name in ignored:
                 continue
             left_overs.append(game_info.name)

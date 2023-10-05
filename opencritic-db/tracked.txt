@@ -15,6 +15,7 @@ Ashes of the Singularity: Escalation
 Assassin's Creed Valhalla
 Assassin's Creed Valhalla - Discovery Tour: Viking Age
 Assassin's Creed Valhalla: Dawn of Ragnarok
+Astalon: Tears of the Earth
 Axiom Verge
 Azure Striker Gunvolt 3
 Baldur's Gate 3
@@ -40,6 +41,7 @@ Chained Echoes
 Chicory: A Colorful Tale
 Citizen Sleeper
 Clannad
+Cocoon
 Control
 Control: Ultimate Edition
 CrossCode
@@ -49,6 +51,7 @@ Cthulhu Saves Christmas
 Cult of the Lamb
 Cuphead
 Cuphead: The Delicious Last Course
+Cyberpunk 2077: Phantom Liberty
 Dandara: Trials of Fear Edition
 Danganronpa 2: Goodbye Despair (PC Edition)
 Danganronpa Decadence
@@ -77,6 +80,7 @@ Devil May Cry 5
 Diablo IV
 Disco Elysium
 Disco Elysium: The Final Cut
+Disgaea 7: Vows of the Virtueless
 Dishonored 2
 Doki Doki Literature Club
 Doki Doki Literature Club Plus!
@@ -115,6 +119,7 @@ Fell Seal: Arbiter's Mark
 Fez
 Final Fantasy IV Pixel Remaster
 Final Fantasy IX (Steam Edition)
+Final Fantasy IX (Steam)
 Final Fantasy V Pixel Remaster
 Final Fantasy VI Pixel Remaster
 Final Fantasy VII Remake Intergrade
@@ -199,6 +204,7 @@ Manifold Garden
 Marvel's Midnight Suns
 Marvel's Spider-Man: Remastered
 Mass Effect Legendary Edition
+Mega City Police
 Mega Man X Legacy Collection 1+2
 Metal Gear Rising: Revengeance
 Metro Exodus
@@ -215,6 +221,7 @@ Monster Hunter Rise: Sunbreak
 Monster Hunter World
 Monster Hunter World: Iceborne
 Monster Train
+Moonstone Island
 MOTHERGUNSHIP: FORGE
 Moving Out: Movers in Paradise
 Mushihimesama
@@ -286,9 +293,11 @@ Red Matter 2
 Rescue Party: Live!
 Resident Evil 4 (2023 Remake)
 Resident Evil 4 (2023)
+Resident Evil 4: Separate Ways
 Return to Monkey Island
 Returnal
 Rez Infinite
+Rise of the Tomb Raider
 Risk of Rain 2
 Roadwarden
 Rogue Legacy
@@ -297,6 +306,8 @@ Sayonara Wild Hearts
 Scarlet Hollow
 Sea of Stars
 Shadow Gambit: The Cursed Crew
+Shadow Tactics: Blades of the Shogun
+Shadow Tactics: Blades of the Shogun
 Shadowrun: Dragonfall - Director's Cut
 Shantae: Half-Genie Hero - Ultimate Edition
 Shin Megami Tensei V
@@ -312,6 +323,7 @@ SKALD: Against the Black Priory
 Sky: Children of the Light
 Slay The Spire
 Slay The Spire
+Slay The Spire
 Slayaway Camp
 Smushi Come Home
 Sniper Elite 5
@@ -325,8 +337,10 @@ Star Stuff
 Star Wars Jedi: Survivor
 Star Wars: Knights of the Old Republic
 Stardew Valley
+Starfield
 Steins;Gate
 Steins;Gate (Steam Edition)
+Steins;Gate 0
 Steins;Gate Elite
 STEINS;GATE ELITE
 Stephen's Sausage Roll
@@ -342,6 +356,7 @@ Subnautica: Below Zero
 Sumire
 Sunless Skies
 Super Mario 3D World + Bowser's Fury
+Super Meat Boy
 Syberia - The World Before
 Tales of Arise
 Tales of Vesperia: Definitive Edition
@@ -358,6 +373,7 @@ The Binding of Isaac: Afterbirth
 The Binding of Isaac: Afterbirth+
 The Binding of Isaac: Rebirth
 The Binding Of Isaac: Repentance
+The Blackwell Epiphany
 The Blackwell Epiphany+
 The Case of the Golden Idol
 The Cosmic Wheel Sisterhood
@@ -368,6 +384,7 @@ The House in Fata Morgana
 The Journey Down Trilogy
 The Kids We Were: Complete Edition
 The Last Clockwinder
+The Legend of Heroes: Trails from Zero
 The Legend of Heroes: Trails in the Sky
 The Legend of Heroes: Trails in the Sky the 3rd
 The Legend of Heroes: Trails to Azure
@@ -415,8 +432,10 @@ Voice of Cards: The Forsaken Maiden
 Walkabout Mini Golf
 Wandersong
 Wargroove
+Wargroove 2
 Wargroove: Double Trouble
 Warhammer 40,000: Chaos Gate - Daemonhunters
+Warstride Challenges
 Wartales
 Wasteland 3
 Watch Dogs 2
@@ -436,4 +455,5 @@ Yoku's Island Express
 Youropa
 Ys VIII: Lacrimosa of DANA
 ZEN Pinball 2: The Walking Dead
+Zero Escape: The Nonary Games
 Zero Escape: The Nonary GamesBaldur's Gate 3
