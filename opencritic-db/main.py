@@ -1,6 +1,6 @@
 # %%
 from dataclasses import dataclass
-from re import I
+from datetime import datetime
 import requests
 import json
 import time
@@ -14,7 +14,7 @@ headers = {
 to_ignore_files = ["ignored.txt", "tracked.txt", "played.txt"]
 
 
-def request_and_archive_data(year=2022):
+def request_and_archive_data():
     """
     Request data from the given url.
     """
@@ -44,12 +44,15 @@ class GameInfo:
     percent_recommended: float
     top_critic_score: float
     game_id: int
+    first_release_date: str
+
+    @property
+    def release_year(self):
+        return datetime.strptime(self.first_release_date, "%Y-%m-%dT%H:%M:%S.%fZ").year
 
 
-def main():
-    request_and_archive_data()
-    with open("data.json", "r") as f:
-        data = json.load(f)
+def main(year=2023):
+    # request_and_archive_data()
 
     ignored = set()
     for file in to_ignore_files:
@@ -67,7 +70,10 @@ def main():
             game["percentRecommended"],
             game["topCriticScore"],
             game["id"],
+            game["firstReleaseDate"],
         )
+        if game_info.release_year != year:
+            continue
         # if game_info.tier in ("Mighty",):
         # if game_info.tier in ("Mighty", "Strong"):
         if game_info.top_critic_score > 83:

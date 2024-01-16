@@ -3,8 +3,11 @@
 8-Bit Adventures 2
 A Plague Tale: Requiem
 A Space for the Unbound
+Aces & Adventures
+Against The Storm
 Age of Empires IV
 AI: THE SOMNIUM FILES - nirvanA Initiative
+Alan Wake 2
 Alba: A Wildlife Adventure
 Amid Evil
 Andro Dunos 2
@@ -16,6 +19,8 @@ Assassin's Creed Valhalla
 Assassin's Creed Valhalla - Discovery Tour: Viking Age
 Assassin's Creed Valhalla: Dawn of Ragnarok
 Astalon: Tears of the Earth
+Astral Ascent
+Astrea: Six-Sided Oracles
 Axiom Verge
 Azure Striker Gunvolt 3
 Baldur's Gate 3
@@ -23,6 +28,7 @@ Batman: Arkham Knight
 Batman: The Enemy Within - Episode 5
 BattleBlock Theater
 Bayonetta
+Bayonetta 3
 Before Your Eyes
 Betrayal At Club Low
 BioShock: The Collection
@@ -44,6 +50,7 @@ Clannad
 Cocoon
 Control
 Control: Ultimate Edition
+Coral Island
 CrossCode
 Crowns and Pawns: Kingdom of Deceit
 Crypt of the Necrodancer
@@ -110,6 +117,7 @@ Everhood
 Everspace
 EVERSPACE 2
 Expeditions: Rome
+F-Zero 99
 Factorio
 Falling Out
 Fallout 4
@@ -124,6 +132,7 @@ Final Fantasy V Pixel Remaster
 Final Fantasy VI Pixel Remaster
 Final Fantasy VII Remake Intergrade
 Final Fantasy XV: Windows Edition
+Final Fantasy XVI
 Finding Paradise
 Flat Eye
 Floppy Knights
@@ -141,8 +150,11 @@ Ghost of Tsushima Director's Cut
 Ghost Trick: Phantom Detective
 Glitch Busters: Stuck On You
 Gloomhaven
+God of War Ragnarök
+God of War Ragnarok: Valhalla
 Gordian Quest
 Gorogoa
+Granblue Fantasy Versus: Rising
 Grand Theft Auto V
 Grapple Dog
 Gravity Circuit
@@ -169,6 +181,7 @@ Hotline Miami Collection
 Huntdown
 HYPER DEMON
 Hyper Light Drifter
+I Expect You To Die 3: Cog in the Machine
 I Was a Teenage Exocolonist
 Ib
 Iconoclasts
@@ -178,9 +191,11 @@ Immortality
 Infernax
 INSIDE
 It Takes Two
+Jack Jeanne
 Jack Move
 Jimmy and the Pulsating Mass
 Journey
+Jusant
 Just Shapes & Beats
 Kaiju Wars
 Katamari Damacy Reroll
@@ -192,16 +207,20 @@ King Arthur: Knight's Tale
 Kirby and the Forgotten Land
 Kombinera
 Kynseed
+Land of the Vikings
 Later Alligator
 Legend of Grimrock II
 Lego Star Wars: The Skywalker Saga
 Let's! Revolution!
 Levelhead
 Lil Gator Game
+Little Goody Two Shoes
 Lost in Play
 Magic: The Gathering Arena
 Manifold Garden
+Mario + Rabbids: Sparks of Hope
 Marvel's Midnight Suns
+Marvel's Spider-Man 2
 Marvel's Spider-Man: Remastered
 Mass Effect Legendary Edition
 Mega City Police
@@ -211,6 +230,7 @@ Metro Exodus
 Metro Redux
 Metro: 2033 Redux
 Metroid Dread
+Metroid Prime Remastered
 Middle-earth: Shadow of War
 Mighty Switch Force! Collection
 Minecraft
@@ -222,6 +242,7 @@ Monster Hunter World
 Monster Hunter World: Iceborne
 Monster Train
 Moonstone Island
+Moss: Book II
 MOTHERGUNSHIP: FORGE
 Moving Out: Movers in Paradise
 Mushihimesama
@@ -232,6 +253,7 @@ Ni no Kuni 2: Revenant Kingdom
 Ni no Kuni II: Revenant Kingdom - Prince's Edition
 Ni no Kuni: Wrath of the White Witch Remastered
 Nier: Automata
+Nier: Automata - The End of YoRHa Edition
 NieR: Automata Game of the YoRHa Edition
 Night in the Woods
 Nioh 2 - The Complete Edition
@@ -268,12 +290,15 @@ Persona 4 Arena Ultimax
 Persona 4 Golden
 Persona 4 Golden (PC)
 Persona 5 Strikers
+Pikmin 4
 Pillars of Eternity
 Pillars of Eternity II: Deadfire
 Pillars of Eternity: Complete Edition
+Pizza Tower
 Planescape: Torment Enhanced Edition
 Planet Coaster
 Please, Touch The Artwork
+Pokémon Legends: Arceus
 Pokémon Legends: Arceus
 Pony Island
 Potion Craft
@@ -284,8 +309,10 @@ Psychonauts 2
 Quadrilateral Cowboy
 Quake
 Quake (2021 Remaster)
+Radiant Tale
 Ragnarock
 Rakuen
+Rakuen Deluxe Edition
 Ratchet & Clank: Rift Apart
 Rayman Legends
 Red Dead Redemption 2
@@ -301,11 +328,13 @@ Rise of the Tomb Raider
 Risk of Rain 2
 Roadwarden
 Rogue Legacy
+Roots of Pacha
 Salt and Sacrifice
 Sayonara Wild Hearts
 Scarlet Hollow
 Sea of Stars
 Shadow Gambit: The Cursed Crew
+Shadow Gambit: The Cursed Crew - Yuri's Wish & Zagan's Ritual
 Shadow Tactics: Blades of the Shogun
 Shadow Tactics: Blades of the Shogun
 Shadowrun: Dragonfall - Director's Cut
@@ -321,6 +350,7 @@ SIGNALIS
 Silicon Dreams
 SKALD: Against the Black Priory
 Sky: Children of the Light
+Slay the Princess
 Slay The Spire
 Slay The Spire
 Slay The Spire
@@ -333,6 +363,7 @@ Souldiers
 South Park: The Stick of Truth
 SpiderHeck
 Spiritfarer
+Star Ocean: The Second Story R
 Star Stuff
 Star Wars Jedi: Survivor
 Star Wars: Knights of the Old Republic
@@ -353,9 +384,12 @@ Streets Of Rage 4 - Mr. X Nightmare
 Streets of Rage 4: Mr. X Nightmare
 Subnautica
 Subnautica: Below Zero
+Subpar Pool
 Sumire
 Sunless Skies
 Super Mario 3D World + Bowser's Fury
+Super Mario Bros. Wonder
+Super Mario RPG
 Super Meat Boy
 Syberia - The World Before
 Tales of Arise
@@ -363,6 +397,7 @@ Tales of Vesperia: Definitive Edition
 Teardown
 Teenage Mutant Ninja Turtles: Shredder's Revenge
 Tentacular
+Tents and Trees
 Terror of Hemasaurus
 tERRORbane
 Tetris Effect
@@ -388,6 +423,7 @@ The Legend of Heroes: Trails from Zero
 The Legend of Heroes: Trails in the Sky
 The Legend of Heroes: Trails in the Sky the 3rd
 The Legend of Heroes: Trails to Azure
+The Legend of Zelda: Tears of the Kingdom
 The Messenger
 The Nioh Collection
 The Serpent Rogue
@@ -395,7 +431,9 @@ The Stanley Parable: Ultra Deluxe
 The Swapper
 The Swords of Ditto: Mormo's Curse
 The Talos Principle
+The Talos Principle 2
 The Witness
+Theatrhythm Final Bar Line
 There Is No Game: Wrong Dimension
 They always run
 This War of Mine
@@ -406,6 +444,7 @@ Tiny Tina's Wonderlands
 Tinykin
 Tinykin 
 To The Moon
+Torn Away
 TowerFall Ascension
 Transistor
 TRI: Of Friendship and Madness
@@ -421,9 +460,11 @@ Undertale
 Unsighted
 V Rising
 VA-11 Hall-A: Cyberpunk Bartender Action
+Valfaris: Mecha Therion
 Valheim
 Valkyria Chronicles
 Valkyria Chronicles 4
+Valkyrie Profile: Lenneth
 Velocity 2X
 Vernal Edge
 Videoverse
@@ -449,11 +490,15 @@ WHAT THE GOLF?
 Will You Snail?
 Windjammers 2
 Wolfenstein 2: The New Colossus
+Wylde Flowers
+Xenoblade Chronicles 3
+Xenoblade Chronicles 3: Future Redeemed
 Yakuza 0
 Yakuza: Like a Dragon
 Yoku's Island Express
 Youropa
 Ys VIII: Lacrimosa of DANA
+Ys X: Nordics
 ZEN Pinball 2: The Walking Dead
 Zero Escape: The Nonary Games
 Zero Escape: The Nonary GamesBaldur's Gate 3
