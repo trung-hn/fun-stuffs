@@ -27,21 +27,6 @@ add support for schema validation (user-provided schema)
 """
 
 
-class ErrorType(Enum):
-    SCHEMA_VIOLATION = "schema_violation"
-    EXTRACTION_FAILURE = "extraction_failure"
-    VALIDATION_FAILURE = "validation_failure"
-    RUNTIME_ERROR = "runtime_error"
-
-
-@dataclass
-class ExtractionError(Exception):
-    error_type: ErrorType
-    details: str
-    recoverable: bool
-    context: Optional[Dict[str, Any]] = None
-
-
 @dataclass
 class TestResult:
     name: str
@@ -51,25 +36,14 @@ class TestResult:
     partial_results: Optional[Dict[str, float]] = None
 
 
-@dataclass
-class ValidationResult:
-    is_valid: bool
-    errors: List[Dict[str, Any]]
-    warnings: List[Dict[str, Any]]
-    score: float
-
-
 class WorkflowState(TypedDict):
     input_text: str
-    schema: Dict[str, Any]
     extracted_json: Dict[str, Any]
     test_results: List[TestResult]
     evaluation: str
     feedback: str
     confidence_score: float
     iteration: int
-    error_context: Optional[Dict[str, Any]]
-    validation_results: Optional[ValidationResult]
     state_version: int
 
 
@@ -104,12 +78,6 @@ class StateManager:
         state_version = self.states.get(version)
         return state_version.state if state_version else None
 
-    def rollback(self, version: int) -> Optional[WorkflowState]:
-        if version in self.states:
-            self.current_version = version
-            return self.states[version].state
-        return None
-
 
 class TestRunner:
     def __init__(self):
@@ -139,100 +107,30 @@ class TestRunner:
             )
 
 
-def handle_extraction_error(
-    error: ExtractionError, state: WorkflowState
-) -> WorkflowState:
-    """Handle different types of extraction errors"""
-    logger.error(f"Extraction error: {error.error_type} - {error.details}")
-
-    if error.recoverable:
-        return {
-            **state,
-            "error_context": {
-                "type": error.error_type.value,
-                "details": error.details,
-                "recoverable": True,
-                "context": error.context,
-            },
-            "confidence_score": max(0.0, state["confidence_score"] - 0.2),
-        }
-    else:
-        return {
-            **state,
-            "error_context": {
-                "type": error.error_type.value,
-                "details": error.details,
-                "recoverable": False,
-                "context": error.context,
-            },
-            "confidence_score": 0.0,
-        }
-
-
 def extraction_node(state: WorkflowState) -> WorkflowState:
     """Enhanced extraction node with error handling"""
-    try:
-        prompt = ExtractionPrompt().generate(
-            input_text=state["input_text"],
-            schema=state["schema"],
-            previous_feedback=state["feedback"] if state["iteration"] > 0 else "",
-        )
+    prompt = ExtractionPrompt().generate(
+        input_text=state["input_text"],
+        previous_feedback=state["feedback"] if state["iteration"] > 0 else "",
+    )
 
-        # In practice, send prompt to LLM here
-        # extracted_data = llm(prompt)
+    # In practice, send prompt to LLM here
+    # extracted_data = llm(prompt)
 
-        # Simulation with possible errors
-        if state["iteration"] > 5:
-            raise ExtractionError(
-                error_type=ErrorType.EXTRACTION_FAILURE,
-                details="Maximum iterations reached without convergence",
-                recoverable=False,
-                context={"iteration": state["iteration"]},
-            )
+    extracted_data = {
+        "title": "Sample Title",
+        "content": state["input_text"][:100],
+        "metadata": {
+            "date": datetime.now().isoformat(),
+            "categories": ["auto-generated"],
+        },
+    }
 
-        extracted_data = {
-            "title": "Sample Title",
-            "content": state["input_text"][:100],
-            "metadata": {
-                "date": datetime.now().isoformat(),
-                "categories": ["auto-generated"],
-            },
-        }
-
-        # Validate extraction
-        validation_result = validate_extraction(extracted_data, state["schema"])
-        if not validation_result.is_valid:
-            raise ExtractionError(
-                error_type=ErrorType.SCHEMA_VIOLATION,
-                details="Extraction failed schema validation",
-                recoverable=True,
-                context={"validation_errors": validation_result.errors},
-            )
-
-        return {
-            **state,
-            "extracted_json": extracted_data,
-            "confidence_score": 0.85,
-            "validation_results": validation_result,
-        }
-
-    except ExtractionError as e:
-        return handle_extraction_error(e, state)
-    except Exception as e:
-        return handle_extraction_error(
-            ExtractionError(
-                error_type=ErrorType.RUNTIME_ERROR, details=str(e), recoverable=False
-            ),
-            state,
-        )
-
-
-def validate_extraction(
-    extracted_data: Dict[str, Any], schema: Dict[str, Any]
-) -> ValidationResult:
-    """Validate extracted data against schema"""
-    # Implement actual validation logic here
-    return ValidationResult(is_valid=True, errors=[], warnings=[], score=0.9)
+    return {
+        **state,
+        "extracted_json": extracted_data,
+        "confidence_score": 0.85,
+    }
 
 
 def test_runner_node(state: WorkflowState) -> WorkflowState:
@@ -275,9 +173,6 @@ def evaluation_node(state: WorkflowState) -> WorkflowState:
 
 def should_continue(state: WorkflowState) -> Iterable[str]:
     """Enhanced decision logic for workflow continuation"""
-    # Check for critical errors
-    if state.get("error_context") and not state["error_context"].get("recoverable"):
-        return [END]
 
     # Check iteration limit
     if state["iteration"] >= MAX_ITERATIONS:
@@ -337,21 +232,18 @@ def create_extraction_workflow() -> Graph:
     return workflow.compile()
 
 
-def run_extraction_pipeline(text: str, schema: Dict[str, Any]) -> Dict[str, Any]:
+def run_extraction_pipeline(text: str) -> Dict[str, Any]:
     """Run the enhanced extraction pipeline"""
     state_manager = StateManager()
 
     initial_state: WorkflowState = {
         "input_text": text,
-        "schema": schema,
         "extracted_json": {},
         "test_results": [],
         "evaluation": "",
         "feedback": "",
         "confidence_score": 0.0,
         "iteration": 0,
-        "error_context": None,
-        "validation_results": None,
         "state_version": 0,
     }
 
@@ -374,31 +266,13 @@ def run_extraction_pipeline(text: str, schema: Dict[str, Any]) -> Dict[str, Any]
         ),
         "confidence_score": final_state["confidence_score"],
         "iterations": final_state["iteration"],
-        "error_context": final_state.get("error_context"),
-        "validation_results": final_state.get("validation_results"),
         "state_version": final_state["state_version"],
     }
 
 
 if __name__ == "__main__":
-    sample_schema = {
-        "type": "object",
-        "required": ["title", "content", "metadata"],
-        "properties": {
-            "title": {"type": "string"},
-            "content": {"type": "string"},
-            "metadata": {
-                "type": "object",
-                "properties": {
-                    "date": {"type": "string", "format": "date-time"},
-                    "categories": {"type": "array", "items": {"type": "string"}},
-                },
-            },
-        },
-    }
-
     sample_text = "This is a sample text to extract information from."
-    result = run_extraction_pipeline(sample_text, sample_schema)
+    result = run_extraction_pipeline(sample_text)
     print(f"Extraction Result: {json.dumps(result, indent=2)}")
 
 # %%
