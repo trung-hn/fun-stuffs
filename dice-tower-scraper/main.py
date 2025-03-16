@@ -15,7 +15,7 @@ headers = {
 
 
 def generate_review_links(base_url):
-    page_number = 0
+    page_number = 120
     while True:
         all_page_links = []
         for _ in range(5):
@@ -139,5 +139,6 @@ def save_results_to_file(results, filename="reviews.json"):
 results = load_existing_results()
 for links in generate_review_links(base_url):
     new_results = process_urls_in_parallel(links)
+    print(f"Saving {len(new_results)} new results to file...")
     results.update(new_results)
     save_results_to_file(results)
